@@ -31,6 +31,7 @@ Before starting, it is recommended to pull the changes from Supabase first.
 - Create a new migration with `npx supabase migration new create_new_migration_name` and edit the migration file in `./supabase/migrations/`.
 - Run `npx supabase db reset --local` to apply migrations locally.
 - Run `npx supabase db reset --linked` to apply migrations on Supabase.
+- If none of both (local or linked) is specified, then --local will be used as default.
 
 ## Pull Changes from Supabase to Local
 
