@@ -1,33 +1,39 @@
 # Motor Online
 
-## Run Supabase in local
+This project uses [Supabase](https://supabase.com/docs) and [Next.js](https://nextjs.org/docs). Refer to the documentation for more information on how to use them.
 
-See database migration guide [https://supalaunch.com/blog/nextjs-supabase-database-migration-guide]
+**Important: Docker is required to run Supabase locally and it requires at least 7GB of memory.**
 
-- `npm i supabase --save-dev`
-- `npx supabase init` (This will create supabase folder in your project root directory. This folder will contain all the files related to your Supabase database including migrations)
-- `npx supabase start` (it requires docker running locally)
-  - After this step you will see output containing your local Supabase credentials
-- Connect local database to your Supabase project
+## Run Supabase Locally
+
+For a quick setup, we are using `npx`.
+
+- `npx supabase init` (This will create a Supabase folder in your project's root directory. This folder will contain all the files related to your Supabase database, including migrations.)
+- `npx supabase start` (Requires Docker running locally and at least 7GB of memory ram)
+  - After this step, you will see output containing your local Supabase credentials. Use `npx supabase status` to retrieve your credentials again.
+- Connect Supabase to a local database:
   - `npx supabase login`
-  - `npx supabase link --project-ref <reference-id>`
-- New migration `npx supabase migration new create_new_migration_name` and edit the migration file
-- Apply migrations in remote, it also run seeds
+  - `npx supabase link --project-ref <reference-id>` (Find the reference ID in the Supabase Dashboard of your project.)
+
+Migrations (see the database migration guide: [Supabase Database Migration Guide](https://supalaunch.com/blog/nextjs-supabase-database-migration-guide))
+
+- Create a new migration with `npx supabase migration new create_new_migration_name` and edit the migration file.
+- Apply migrations remotely; this also runs seeds:
   - `npx supabase db reset --linked`
-- Apply migrations in local, it also run seeds
+- Apply migrations locally; this also runs seeds:
   - `npx supabase db reset --local`
 
-## Push changes from Local to Supabase
+## Push Changes from Local to Supabase
 
-Before to start it's recommended to pull the changes from Supabase first.
+Before starting, it is recommended to pull the changes from Supabase first.
 
-- `npx supabase db pull` to pull the changes into our local (it create a new migration with the changes if exists)
-- Create a new migration `npx supabase migration new create_new_migration_name` and edit the migration file (`./supabase/migrations/`)
-- Then `npx supabase db reset --local` to run migrations in local
-- Then `npx supabase db reset --linked` to run migrations in Supabase
+- Use `npx supabase db pull` to pull the changes into your local environment (it creates a new migration with the changes if they exist).
+- Create a new migration with `npx supabase migration new create_new_migration_name` and edit the migration file in `./supabase/migrations/`.
+- Run `npx supabase db reset --local` to apply migrations locally.
+- Run `npx supabase db reset --linked` to apply migrations on Supabase.
 
-## Pull changes from Supabase to Local
+## Pull Changes from Supabase to Local
 
-- Create a new database in Supabase
-- Then `npx supabase db pull` to pull the changes into our local (it create a new migration with the changes)
-- Then `npx supabase db reset --local` to run migrations in local
+- Create a new database in Supabase.
+- Use `npx supabase db pull` to pull the changes into your local environment (it creates a new migration with the changes).
+- Run `npx supabase db reset --local` to apply migrations locally.
