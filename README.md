@@ -2,6 +2,8 @@
 
 This project uses [Supabase](https://supabase.com/docs) and [Next.js](https://nextjs.org/docs). Refer to the documentation for more information on how to use them.
 
+This project is not intended to be a Supabase or Next documentation project (solo algunos comandos para arrancar o salir del paso). Instead you should use the proper documentation to understand them.
+
 **Important: Docker is required to run Supabase locally and it requires at least 7GB of memory.**
 
 ## Setup
@@ -28,7 +30,7 @@ Migrations (see the database migration guide: [Supabase Database Migration Guide
 - Apply migrations locally; this also runs seeds:
   - `npx supabase db reset --local`
 
-## Push Changes from Local to Supabase
+## New DB Migration and Push Changes from Local to Supabase
 
 Before starting, it is recommended to pull the changes from Supabase first.
 
@@ -38,7 +40,7 @@ Before starting, it is recommended to pull the changes from Supabase first.
 - Run `npx supabase db reset --linked` to apply migrations on Supabase.
 - If none of both (local or linked) is specified, then --local will be used as default.
 
-## Pull Changes from Supabase to Local
+## New DB Migration and Pull Changes from Supabase to Local
 
 - Create a new database in Supabase.
 - Use `npx supabase db pull` to pull the changes into your local environment (it creates a new migration with the changes).
