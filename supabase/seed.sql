@@ -214,3 +214,12 @@ FROM (
         ('Venado Tuerto'),
         ('Villa Constitución')
 ) AS cities(name);
+
+
+INSERT INTO public.vehicle_categories (id, name)
+    VALUES
+        (1, 'Autos y Camionetas'),
+        (2, 'Camiones y Buses'),
+        (3, 'Vehiculos de agua'),
+        (4, 'Maquinaria'),
+        (5, 'Motos');
