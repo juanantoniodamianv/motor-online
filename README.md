@@ -43,3 +43,8 @@ Before starting, it is recommended to pull the changes from Supabase first.
 - Create a new database in Supabase.
 - Use `npx supabase db pull` to pull the changes into your local environment (it creates a new migration with the changes).
 - Run `npx supabase db reset --local` to apply migrations locally.
+
+## FAQ
+
+- If problems with 'not healthy checks' running `npx supabase start` try disabling `npx supabase start --ignore-health-check`
+- Make sure to use Node 20.
