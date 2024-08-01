@@ -26,10 +26,10 @@ VALUES
     ('Tucumán');
 
 -- Necesitamos actualizar esta migración a futuro para que contenga todas las ciudades de las provincias existentes en la tabla de arriba
-INSERT INTO public.cities (name, provinceid)
+INSERT INTO public.cities (name, province_id)
 SELECT 
     name,
-    (SELECT id FROM public.provinces WHERE name = 'Misiones' LIMIT 1) AS provinceid
+    (SELECT id FROM public.provinces WHERE name = 'Misiones' LIMIT 1) AS province_id
 FROM (
     VALUES
         ('Posadas'),
@@ -110,10 +110,10 @@ FROM (
         ('Ruiz de Montoya')
 ) AS cities(name);
 
-INSERT INTO public.cities (name, provinceid)
+INSERT INTO public.cities (name, province_id)
     SELECT 
         name,
-        (SELECT id FROM public.provinces WHERE name = 'Buenos Aires' LIMIT 1) AS provinceid
+        (SELECT id FROM public.provinces WHERE name = 'Buenos Aires' LIMIT 1) AS province_id
 FROM (
     VALUES
         ('Lanús'),
@@ -129,10 +129,10 @@ FROM (
         ('Zarate')
 ) AS cities(name);
 
-INSERT INTO public.cities (name, provinceid)
+INSERT INTO public.cities (name, province_id)
     SELECT 
         name,
-        (SELECT id FROM public.provinces WHERE name = 'Chaco' LIMIT 1) AS provinceid
+        (SELECT id FROM public.provinces WHERE name = 'Chaco' LIMIT 1) AS province_id
 FROM (
     VALUES
         ('Resistencia'),
@@ -141,10 +141,10 @@ FROM (
         ('Gral. Jose de San Martin')
 ) AS cities(name);
 
-INSERT INTO public.cities (name, provinceid)
+INSERT INTO public.cities (name, province_id)
     SELECT 
         name,
-        (SELECT id FROM public.provinces WHERE name = 'Corrientes' LIMIT 1) AS provinceid
+        (SELECT id FROM public.provinces WHERE name = 'Corrientes' LIMIT 1) AS province_id
 FROM (
     VALUES
         ('Beron de Aztrada'),
@@ -163,10 +163,10 @@ FROM (
         ('Paso de los Libres')
 ) AS cities(name);
 
-INSERT INTO public.cities (name, provinceid)
+INSERT INTO public.cities (name, province_id)
     SELECT 
         name,
-        (SELECT id FROM public.provinces WHERE name = 'Entre Ríos' LIMIT 1) AS provinceid
+        (SELECT id FROM public.provinces WHERE name = 'Entre Ríos' LIMIT 1) AS province_id
 FROM (
     VALUES
         ('Federación'),
@@ -183,10 +183,10 @@ FROM (
         ('Villaguay')
 ) AS cities(name);
 
-INSERT INTO public.cities (name, provinceid)
+INSERT INTO public.cities (name, province_id)
     SELECT 
         name,
-        (SELECT id FROM public.provinces WHERE name = 'Formosa' LIMIT 1) AS provinceid
+        (SELECT id FROM public.provinces WHERE name = 'Formosa' LIMIT 1) AS province_id
 FROM (
     VALUES
         ('Comandante'),
@@ -201,10 +201,10 @@ FROM (
         ('San Francisco de Laishí')
 ) AS cities(name);
 
-INSERT INTO public.cities (name, provinceid)
+INSERT INTO public.cities (name, province_id)
     SELECT 
         name,
-        (SELECT id FROM public.provinces WHERE name = 'Santa Fe' LIMIT 1) AS provinceid
+        (SELECT id FROM public.provinces WHERE name = 'Santa Fe' LIMIT 1) AS province_id
 FROM (
     VALUES
         ('Capital'),
