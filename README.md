@@ -4,6 +4,11 @@ This project uses [Supabase](https://supabase.com/docs) and [Next.js](https://ne
 
 **Important: Docker is required to run Supabase locally and it requires at least 7GB of memory.**
 
+## Setup
+
+- Copy the file `.env.local-example` into a new file `.env.local` and replace the variables with your own.
+- Run `npm install --include=optional` to install dependencies.
+
 ## Run Supabase Locally
 
 For a quick setup, we are using `npx`.
