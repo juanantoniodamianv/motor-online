@@ -50,3 +50,7 @@ Before starting, it is recommended to pull the changes from Supabase first.
 
 - If problems with 'not healthy checks' running `npx supabase start` try disabling `npx supabase start --ignore-health-check`
 - Make sure to use Node 20.
+- En Supabase UI ya no se pueden crear triggers a tablas privadas. Para solucionar este problema tienes que ir a la opcion de "SQL Editor" y copiar el siguiente comando, ej:
+  `create trigger on_auth_insert_users after insert on auth.users for each row execute function insert_user_in_public_table_for_new_user();`
+  luego le das RUN en la esquina inferior derecha (o ctrl + enter) y ya te aparecera el triger creado correctamente.
+- Para visualizar logs referentes a Postgres, refiera se a Logs->Postgres
