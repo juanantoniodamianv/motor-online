@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
 
-export async function login(formData: FormData) {
+export async function signin(formData: FormData) {
   const supabase = createClient();
 
   // type-casting here for convenience
@@ -45,19 +45,16 @@ export async function signup(formData: FormData) {
   redirect("/");
 }
 
-export async function google() {
-  console.log("aca");
+export async function signInWithGoogle() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://example.com/auth/callback",
+      redirectTo: "/",
     },
   });
 
-  console.log({ data, error });
-
   if (data.url) {
-    redirect(data.url); // use the redirect API for your server framework
+    redirect(data.url);
   }
 }

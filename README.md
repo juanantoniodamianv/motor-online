@@ -15,7 +15,6 @@ This project is not intended to be a Supabase or Next documentation project (sol
 
 For a quick setup, we are using `npx`.
 
-- `npx supabase init` (This will create a Supabase folder in your project's root directory if doesn't exist. This folder will contain all the files related to your Supabase database, including migrations.)
 - `npx supabase start` (Requires Docker running locally and at least 7GB of memory ram)
   - After this step, you will see output containing your local Supabase credentials. Use `npx supabase status` to retrieve your credentials again.
 - Connect Supabase to a local database:
