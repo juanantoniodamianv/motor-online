@@ -31,37 +31,37 @@ export const DashboardSidebar: FC = function () {
         {/* First Group: Main Navigation */}
         <Sidebar.ItemGroup>
           <Sidebar.Item href="#" icon={HiHome} className="flex justify-start">
-            Home
+            Inicio
           </Sidebar.Item>
           <Sidebar.Item
             href="#"
             icon={HiPencilAlt}
             className="flex justify-start"
           >
-            New Publication
+            Nueva Publicación
           </Sidebar.Item>
           <Sidebar.Item
             href="#"
             icon={HiCollection}
             className="flex justify-start"
           >
-            My Publications
+            Mis Publicaciones
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiUser} className="flex justify-start">
-            All Publications
+            Todas las Publicaciones
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiHeart} className="flex justify-start">
-            My Favorites
+            Mis Favoritos
           </Sidebar.Item>
         </Sidebar.ItemGroup>
 
         {/* Second Group: User Profile */}
         <Sidebar.ItemGroup>
           <Sidebar.Item href="#" icon={HiUser} className="flex justify-start">
-            My Profile
+            Mi Perfil
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiMail} className="flex justify-start">
-            Messages
+            Mensajes
           </Sidebar.Item>
         </Sidebar.ItemGroup>
 
@@ -72,13 +72,13 @@ export const DashboardSidebar: FC = function () {
             icon={HiUserGroup}
             className="flex justify-start"
           >
-            All Users
+            Usuarios
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiCog} className="flex justify-start">
-            Configuration
+            Configuraciones
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiLogout} className="flex justify-start">
-            Sign Out
+            Cerrar Sesión
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
