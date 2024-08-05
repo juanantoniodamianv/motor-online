@@ -53,3 +53,4 @@ Before starting, it is recommended to pull the changes from Supabase first.
   `create trigger on_auth_insert_users after insert on auth.users for each row execute function insert_user_in_public_table_for_new_user();`
   luego le das RUN en la esquina inferior derecha (o ctrl + enter) y ya te aparecera el triger creado correctamente.
 - Para visualizar logs referentes a Postgres, refiera se a Logs->Postgres
+- UI: https://flowbite.com/blocks/
