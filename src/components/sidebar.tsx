@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useSidebarContext } from "@/src/context/sidebar-context";
 import { Sidebar } from "flowbite-react";
 import type { FC } from "react";
@@ -30,53 +31,58 @@ export const DashboardSidebar: FC = function () {
       <Sidebar.Items>
         {/* First Group: Main Navigation */}
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={HiHome} className="flex justify-start">
-            Inicio
-          </Sidebar.Item>
-          <Sidebar.Item
-            href="#"
-            icon={HiPencilAlt}
-            className="flex justify-start"
-          >
-            Nueva Publicación
-          </Sidebar.Item>
-          <Sidebar.Item
-            href="#"
-            icon={HiCollection}
-            className="flex justify-start"
-          >
-            Mis Publicaciones
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiUser} className="flex justify-start">
-            Todas las Publicaciones
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiHeart} className="flex justify-start">
-            Mis Favoritos
-          </Sidebar.Item>
+          <Link href="/dashboard" passHref>
+            <Sidebar.Item icon={HiHome} className="flex justify-start">
+              Inicio
+            </Sidebar.Item>
+          </Link>
+          <Link href="/dashboard/new-publication" passHref>
+            <Sidebar.Item icon={HiPencilAlt} className="flex justify-start">
+              Nueva Publicación
+            </Sidebar.Item>
+          </Link>
+          <Link href="/dashboard/my-publications" passHref>
+            <Sidebar.Item icon={HiCollection} className="flex justify-start">
+              Mis Publicaciones
+            </Sidebar.Item>
+          </Link>
+          <Link href="/dashboard/my-favorites" passHref>
+            <Sidebar.Item
+              href="#"
+              icon={HiHeart}
+              className="flex justify-start"
+            >
+              Mis Favoritos
+            </Sidebar.Item>
+          </Link>
         </Sidebar.ItemGroup>
 
         {/* Second Group: User Profile */}
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={HiUser} className="flex justify-start">
-            Mi Perfil
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiMail} className="flex justify-start">
-            Mensajes
-          </Sidebar.Item>
+          <Link href="/dashboard/my-profile" passHref>
+            <Sidebar.Item href="#" icon={HiUser} className="flex justify-start">
+              Mi Perfil
+            </Sidebar.Item>
+          </Link>
+          <Link href="/dashboard/messages" passHref>
+            <Sidebar.Item href="#" icon={HiMail} className="flex justify-start">
+              Mensajes
+            </Sidebar.Item>
+          </Link>
         </Sidebar.ItemGroup>
 
         {/* Third Group: Administration and Settings */}
         <Sidebar.ItemGroup>
-          <Sidebar.Item
-            href="#"
-            icon={HiUserGroup}
-            className="flex justify-start"
-          >
-            Usuarios
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiCog} className="flex justify-start">
-            Configuraciones
-          </Sidebar.Item>
+          <Link href="/dashboard/users" passHref>
+            <Sidebar.Item icon={HiUserGroup} className="flex justify-start">
+              Usuarios
+            </Sidebar.Item>
+          </Link>
+          <Link href="/dashboard/configurations" passHref>
+            <Sidebar.Item icon={HiCog} className="flex justify-start">
+              Configuraciones
+            </Sidebar.Item>
+          </Link>
           <Sidebar.Item href="#" icon={HiLogout} className="flex justify-start">
             Cerrar Sesión
           </Sidebar.Item>
