@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { FC } from "react";
 import { HiMenuAlt1, HiX } from "react-icons/hi";
 
-export const DashboardNavbar: FC<Record<string, never>> = function () {
+export const DashboardNavbar: FC<Record<string, string>> = function (props) {
   const { isCollapsed: isSidebarCollapsed, setCollapsed: setSidebarCollapsed } =
     useSidebarContext();
 
@@ -34,6 +34,15 @@ export const DashboardNavbar: FC<Record<string, never>> = function () {
                 <span className="self-center whitespace-nowrap px-3 text-xl font-semibold dark:text-white">
                   Motor Online
                 </span>
+                <Image
+                  loader={() => props.avatarUrl}
+                  src={props.avatarUrl}
+                  width={30}
+                  height={30}
+                  alt="Picture of the account"
+                  className="rounded-full"
+                  unoptimized
+                />
               </Navbar.Brand>
             </div>
             <DarkThemeToggle />
