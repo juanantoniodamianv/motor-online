@@ -11,5 +11,17 @@ export default async function VehicleSelector() {
     throw error;
   }
 
-  return <VehicleDetailSelector vehicleCategories={vehicleCategories} />;
+  const existentSelection = {
+    category: 1,
+    make: 4,
+    model: 35,
+    version: 458,
+  };
+
+  return (
+    <VehicleDetailSelector
+      vehicleCategories={vehicleCategories}
+      existentSelection={existentSelection}
+    />
+  );
 }

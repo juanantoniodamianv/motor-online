@@ -13,25 +13,58 @@ const supabase = createClient();
 
 export default function VehicleDetailSelector({
   vehicleCategories,
+  existentSelection,
 }: {
   vehicleCategories: VehicleCategory[];
+  existentSelection?: {
+    category: number;
+    make: number;
+    model: number;
+    version: number;
+  };
 }) {
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [selectedMake, setSelectedMake] = useState<number | null>(null);
-  const [selectedModel, setSelectedModel] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(
+    existentSelection?.category || null
+  );
+  const [selectedMake, setSelectedMake] = useState<number | null>(
+    existentSelection?.make || null
+  );
+  const [selectedModel, setSelectedModel] = useState<number | null>(
+    existentSelection?.model || null
+  );
+  const [selectedVersion, setSelectedVersion] = useState<number | null>(
+    existentSelection?.version || null
+  );
+
+  // useEffect(() => {
+  //   if (!existentSelection?.category) {
+  //     setSelectedModel(null);
+  //     setSelectedVersion(null);
+  //   }
+  // }, [selectedCategory]);
 
   return (
     <>
       <CategorySelector
         categories={vehicleCategories}
         onSelectCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
       />
       <MakeSelector
         categoryId={selectedCategory}
         onSelectMake={setSelectedMake}
+        selectedMake={selectedMake}
       />
-      <ModelSelector makeId={selectedMake} onSelectModel={setSelectedModel} />
-      <VersionSelector modelId={selectedModel} />
+      <ModelSelector
+        makeId={selectedMake}
+        onSelectModel={setSelectedModel}
+        selectedModel={selectedModel}
+      />
+      <VersionSelector
+        modelId={selectedModel}
+        onSelectVersion={setSelectedVersion}
+        selectedVersion={selectedVersion}
+      />
     </>
   );
 }
@@ -39,9 +72,11 @@ export default function VehicleDetailSelector({
 const CategorySelector = ({
   categories,
   onSelectCategory,
+  selectedCategory,
 }: {
   categories: VehicleCategory[];
   onSelectCategory: Dispatch<SetStateAction<number | null>>;
+  selectedCategory: number | null;
 }) => {
   return (
     <div className="mb-6 grid">
@@ -60,7 +95,11 @@ const CategorySelector = ({
         <option value="">Seleccione una categoría</option>
         {categories &&
           categories.map((category) => (
-            <option value={category.id} key={category.id}>
+            <option
+              value={category.id}
+              key={category.id}
+              selected={selectedCategory === category.id}
+            >
               {category.name}
             </option>
           ))}
@@ -72,9 +111,11 @@ const CategorySelector = ({
 const MakeSelector = ({
   categoryId,
   onSelectMake,
+  selectedMake,
 }: {
   categoryId: number | null;
   onSelectMake: Dispatch<SetStateAction<number | null>>;
+  selectedMake: number | null;
 }) => {
   const [makes, setMakes] = useState<VehicleMake[]>([]);
 
@@ -132,7 +173,11 @@ const MakeSelector = ({
         <option value="">Seleccione una marca</option>
         {makes &&
           makes.map((make) => (
-            <option value={make.id} key={make.id}>
+            <option
+              value={make.id}
+              key={make.id}
+              selected={selectedMake === make.id}
+            >
               {make.name}
             </option>
           ))}
@@ -144,9 +189,11 @@ const MakeSelector = ({
 const ModelSelector = ({
   makeId,
   onSelectModel,
+  selectedModel,
 }: {
   makeId: number | null;
   onSelectModel: Dispatch<SetStateAction<number | null>>;
+  selectedModel: number | null;
 }) => {
   const [models, setModels] = useState<VehicleModel[]>([]);
 
@@ -187,7 +234,11 @@ const ModelSelector = ({
         <option value="">Seleccione un modelo</option>
         {models &&
           models.map((model) => (
-            <option value={model.id} key={model.id}>
+            <option
+              value={model.id}
+              key={model.id}
+              selected={selectedModel === model.id}
+            >
               {model.name}
             </option>
           ))}
@@ -196,7 +247,15 @@ const ModelSelector = ({
   );
 };
 
-const VersionSelector = ({ modelId }: { modelId: number | null }) => {
+const VersionSelector = ({
+  modelId,
+  onSelectVersion,
+  selectedVersion,
+}: {
+  modelId: number | null;
+  onSelectVersion: Dispatch<SetStateAction<number | null>>;
+  selectedVersion: number | null;
+}) => {
   const [versions, setVersions] = useState<VehicleVersion[]>([]);
 
   useEffect(() => {
@@ -231,11 +290,16 @@ const VersionSelector = ({ modelId }: { modelId: number | null }) => {
         id="version"
         name="version"
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        onChange={(e) => onSelectVersion(Number(e.target.value) || null)}
       >
         <option value="">Seleccione una versión</option>
         {versions &&
           versions.map((version) => (
-            <option value={version.id} key={version.id}>
+            <option
+              value={version.id}
+              key={version.id}
+              selected={selectedVersion === version.id}
+            >
               {version.name}
             </option>
           ))}
