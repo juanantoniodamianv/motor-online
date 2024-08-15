@@ -54,3 +54,4 @@ Before starting, it is recommended to pull the changes from Supabase first.
   luego le das RUN en la esquina inferior derecha (o ctrl + enter) y ya te aparecera el triger creado correctamente.
 - Para visualizar logs referentes a Postgres, refiera se a Logs->Postgres
 - UI: https://flowbite.com/blocks/
+- Iconos: https://react-icons.github.io/react-icons/icons/hi/

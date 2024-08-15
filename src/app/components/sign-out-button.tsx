@@ -1,7 +1,9 @@
 "use client";
 
 import { createClient } from "@/src/app/utils/supabase/client";
+import { Sidebar } from "flowbite-react";
 import { useRouter } from "next/navigation";
+import { HiLogout } from "react-icons/hi";
 
 export default function SignOutButton() {
   const supabase = createClient();
@@ -13,11 +15,13 @@ export default function SignOutButton() {
   };
 
   return (
-    <button
+    <Sidebar.Item
+      href="#"
+      icon={HiLogout}
+      className="flex justify-start"
       onClick={handleSignOut}
-      className="bg-white text-green-700 w-full py-2 rounded hover:bg-green-700 hover:text-white border hover:border-green-700"
     >
-      Sign Out
-    </button>
+      Cerrar Sesión
+    </Sidebar.Item>
   );
 }

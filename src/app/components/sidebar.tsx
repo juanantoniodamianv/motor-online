@@ -78,9 +78,9 @@ const DashboardSidebar: FC = function () {
             </Sidebar.Item>
           ))}
         </Sidebar.ItemGroup>
-
-        <Sidebar.ItemGroup></Sidebar.ItemGroup>
-        <SignOutButton />
+        <Sidebar.ItemGroup>
+          <SignOutButton />
+        </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
   );

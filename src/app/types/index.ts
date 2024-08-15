@@ -19,3 +19,9 @@ export type VehicleModel = VehicleModelEntity;
 type VehicleVersionEntity = Database['public']['Tables']['vehicle_versions']['Row'];
 
 export type VehicleVersion = VehicleVersionEntity;
+
+type ProvinceEntity = Database['public']['Tables']['provinces']['Row'];
+export type Province = ProvinceEntity;
+
+type CityEntity = Database['public']['Tables']['cities']['Row'];
+export type City = CityEntity;
