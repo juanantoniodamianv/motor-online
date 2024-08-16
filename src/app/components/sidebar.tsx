@@ -18,31 +18,31 @@ import { useSidebarContext } from "@/src/context/sidebar-context";
 import SignOutButton from "./sign-out-button";
 
 const links = [
-  { name: "Home", href: "/dashboard", icon: HiHome },
+  { name: "Inicio", href: "/dashboard", icon: HiHome },
   {
-    name: "New Publication",
+    name: "Nueva Publicación",
     href: "/dashboard/new-publication",
     icon: HiPencilAlt,
   },
   {
-    name: "My Publications",
+    name: "Mis Publicaciones",
     href: "/dashboard/my-publications",
     icon: HiCollection,
   },
   {
-    name: "All Publications",
+    name: "Todas las Publicaciones",
     href: "/dashboard/all-publications",
     icon: HiCollection,
   },
-  { name: "My Favorites", href: "/dashboard/my-favorites", icon: HiHeart },
-  { name: "My Profile", href: "/dashboard/my-profile", icon: HiUser },
-  { name: "Messages", href: "/dashboard/messages", icon: HiMail },
+  { name: "Mis Favoritos", href: "/dashboard/my-favorites", icon: HiHeart },
+  { name: "Mi Perfil", href: "/dashboard/my-profile", icon: HiUser },
+  { name: "Mensajes", href: "/dashboard/messages", icon: HiMail },
   {
-    name: "Users",
+    name: "Usuarios",
     href: "/dashboard/Users",
     icon: HiUserGroup,
   },
-  { name: "Configurations", href: "/dashboard/configurations", icon: HiCog },
+  { name: "Configuraciones", href: "/dashboard/configurations", icon: HiCog },
 ];
 
 const DashboardSidebar: FC = function () {

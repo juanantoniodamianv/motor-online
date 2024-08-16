@@ -21,7 +21,7 @@ export default async function VehicleSelector() {
   return (
     <VehicleDetailSelector
       vehicleCategories={vehicleCategories}
-      existentSelection={existentSelection}
+      // existentSelection={existentSelection}
     />
   );
 }
