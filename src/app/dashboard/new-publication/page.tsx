@@ -7,6 +7,7 @@ import Breadcrumb, {
   SectionTab,
   TabNames,
 } from "../../components/publication-form/breadcrumb";
+import { createPublication } from "./actions";
 
 interface Props {
   searchParams: { tab?: string };
@@ -15,36 +16,7 @@ interface Props {
 export default function NewPublication({ searchParams }: Props) {
   const activeTab: SectionTab =
     (searchParams.tab as SectionTab) || TabNames.info;
-
-  async function createPublication(formData: FormData) {
-    "use server";
-    const rawFormData = {
-      category: formData.get("category"),
-      city: formData.get("city"),
-      condition: formData.get("condition"),
-      currency: formData.get("currency"),
-      description: formData.get("description"),
-      engine: formData.get("engine"),
-      km: formData.get("km"),
-      make: formData.get("make"),
-      marketDiscount: formData.get("marketDiscount"),
-      model: formData.get("model"),
-      price: formData.get("price"),
-      province: formData.get("province"),
-      swap: formData.get("swap"),
-      swapDescription: formData.get("swapDescription"),
-      title: formData.get("title"),
-      transmision: formData.get("transmision"),
-      uniqueOwner: formData.get("uniqueOwner"),
-      version: formData.get("version"),
-      year: formData.get("year"),
-    };
-
-    console.log({ rawFormData });
-
-    // mutate data
-    // revalidate cache
-  }
+  const publicationId = searchParams.tab;
 
   return (
     <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -80,6 +52,7 @@ export default function NewPublication({ searchParams }: Props) {
 
                 <DoneSection
                   isActiveTab={parseInt(activeTab.split("-")[0]) === 5}
+                  publicationId={publicationId}
                 />
               </form>
             </div>

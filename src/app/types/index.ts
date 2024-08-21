@@ -25,3 +25,6 @@ export type Province = ProvinceEntity;
 
 type CityEntity = Database['public']['Tables']['cities']['Row'];
 export type City = CityEntity;
+
+export type PublicationEntity = Database['public']['Tables']['publications']['Insert'];
+export type Publication = PublicationEntity;

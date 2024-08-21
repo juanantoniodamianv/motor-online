@@ -1,3 +1,3 @@
 export type SectionProps = {
-    isActiveTab: boolean;
-  };
+  isActiveTab: boolean;
+};

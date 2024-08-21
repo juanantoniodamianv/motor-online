@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, ChangeEvent } from "react";
 import { HiCloudUpload, HiX } from "react-icons/hi";
 import Navigation from "./navigation";
 import { type SectionProps } from "./types";
@@ -8,16 +8,15 @@ export default function ImageSection({ isActiveTab }: SectionProps) {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const handleFileChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files;
       if (files) {
-        const newPreviewImages: string[] = [];
         Array.from(files).forEach((file) => {
           const reader = new FileReader();
           reader.onload = (e) => {
             if (e.target?.result) {
-              newPreviewImages.push(e.target.result as string);
-              setPreviewImages((prev) => [...prev, ...newPreviewImages]);
+              const file = e.target.result as string;
+              setPreviewImages((prev) => [...prev, file]);
             }
           };
           reader.readAsDataURL(file);
@@ -73,6 +72,7 @@ export default function ImageSection({ isActiveTab }: SectionProps) {
               <button
                 onClick={() => handleDeleteImage(index)}
                 className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                type="button"
               >
                 <HiX className="w-4 h-4" />
               </button>

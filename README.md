@@ -55,3 +55,4 @@ Before starting, it is recommended to pull the changes from Supabase first.
 - Para visualizar logs referentes a Postgres, refiera se a Logs->Postgres
 - UI: https://flowbite.com/blocks/
 - Iconos: https://react-icons.github.io/react-icons/icons/hi/
+- Agregar usuarios a google login: https://console.cloud.google.com/apis/credentials/consent?project=motoronline
