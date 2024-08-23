@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 import slugify from "slugify";
-import { Publication } from "../../types";
+import { PublicationInsert } from "../../types";
 import { createClient } from "../../utils/supabase/server";
 import { uploadFiles } from "../../utils/supabase/storage";
 
 type PublicationField = {
-  field: keyof Publication;
+  field: keyof PublicationInsert;
   required: boolean;
 };
 
@@ -49,7 +49,7 @@ export async function createPublication(formData: FormData) {
     throw new Error("User not found");
   }
 
-  const rawFormData: Partial<Publication> = {
+  const rawFormData: Partial<PublicationInsert> = {
     user_id: user.user.id,
   };
 
