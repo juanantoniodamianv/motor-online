@@ -25,13 +25,11 @@ export default async function Publication({
     return <>Error</>;
   }
 
+  // TODO: retornar un solo registro en lugar de seleccionar la posición 0
   const vehicle = data[0];
   const limit = 10;
   const files = await getFiles(supabase, vehicle.id, limit);
-
   const fileUrls = await getPublicUrls(supabase, files);
-
-  console.log(fileUrls);
 
   return (
     <div className="container mx-auto px-4 py-8">
