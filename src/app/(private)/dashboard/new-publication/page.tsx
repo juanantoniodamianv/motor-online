@@ -1,12 +1,12 @@
-import InfoSection from "../../components/publication-form/info-section";
-import LocationSection from "../../components/publication-form/location-section";
-import ImageSection from "../../components/publication-form/image-section";
-import ConfirmSection from "../../components/publication-form/confirm-section";
-import DoneSection from "../../components/publication-form/done-section";
+import InfoSection from "@/src/app/components/publication-form/info-section";
+import LocationSection from "@/src/app/components/publication-form/location-section";
+import ImageSection from "@/src/app/components/publication-form/image-section";
+import ConfirmSection from "@/src/app/components/publication-form/confirm-section";
+import DoneSection from "@/src/app/components/publication-form/done-section";
 import Breadcrumb, {
   SectionTab,
   TabNames,
-} from "../../components/publication-form/breadcrumb";
+} from "@/src/app/components/publication-form/breadcrumb";
 import { createPublication } from "./actions";
 
 interface Props {

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import "../globals.css";
+import { MainNavbar } from "../components/main-navbar";
 
 export const metadata: Metadata = {
   title: "Motor Online",
@@ -15,7 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <MainNavbar />
+        {children}
+      </body>
     </html>
   );
 }
