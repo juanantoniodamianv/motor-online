@@ -1,9 +1,9 @@
+import type { FC } from "react";
+import Image from "next/image";
+import { HiMenuAlt1, HiX } from "react-icons/hi";
+import { DarkThemeToggle, Navbar } from "flowbite-react";
 import { useSidebarContext } from "@/src/context/sidebar-context";
 import { isSmallScreen } from "@/src/helpers";
-import { DarkThemeToggle, Navbar } from "flowbite-react";
-import Image from "next/image";
-import type { FC } from "react";
-import { HiMenuAlt1, HiX } from "react-icons/hi";
 
 export const DashboardNavbar: FC<Record<string, string>> = function (props) {
   const { isCollapsed: isSidebarCollapsed, setCollapsed: setSidebarCollapsed } =

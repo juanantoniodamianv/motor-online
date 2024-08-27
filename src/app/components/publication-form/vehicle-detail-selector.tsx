@@ -1,6 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Label, Select } from "flowbite-react";
 import {
   VehicleCategory,
   VehicleMake,
@@ -35,13 +36,6 @@ export default function VehicleDetailSelector({
   const [selectedVersion, setSelectedVersion] = useState<number | null>(
     existentSelection?.version || null
   );
-
-  // useEffect(() => {
-  //   if (!existentSelection?.category) {
-  //     setSelectedModel(null);
-  //     setSelectedVersion(null);
-  //   }
-  // }, [selectedCategory]);
 
   return (
     <>
@@ -80,30 +74,21 @@ const CategorySelector = ({
 }) => {
   return (
     <div className="mb-6 grid">
-      <label
-        htmlFor="category"
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        Categoria
-      </label>
-      <select
+      <Label htmlFor="category">Categoria</Label>
+      <Select
         id="category"
         name="category"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         onChange={(e) => onSelectCategory(Number(e.target.value) || null)}
+        value={selectedCategory?.toString() || ""}
       >
         <option value="">Seleccione una categoría</option>
         {categories &&
           categories.map((category) => (
-            <option
-              value={category.id}
-              key={category.id}
-              selected={selectedCategory === category.id}
-            >
+            <option value={category.id} key={category.id}>
               {category.name}
             </option>
           ))}
-      </select>
+      </Select>
     </div>
   );
 };
@@ -158,30 +143,21 @@ const MakeSelector = ({
 
   return (
     <div className="mb-6 grid">
-      <label
-        htmlFor="make"
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        Marca
-      </label>
-      <select
+      <Label htmlFor="make">Marca</Label>
+      <Select
         id="make"
         name="make"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         onChange={(e) => onSelectMake(Number(e.target.value) || null)}
+        value={selectedMake?.toString() || ""}
       >
         <option value="">Seleccione una marca</option>
         {makes &&
           makes.map((make) => (
-            <option
-              value={make.id}
-              key={make.id}
-              selected={selectedMake === make.id}
-            >
+            <option value={make.id} key={make.id}>
               {make.name}
             </option>
           ))}
-      </select>
+      </Select>
     </div>
   );
 };
@@ -219,30 +195,21 @@ const ModelSelector = ({
 
   return (
     <div className="mb-6 grid">
-      <label
-        htmlFor="model"
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        Modelo
-      </label>
-      <select
+      <Label htmlFor="model">Modelo</Label>
+      <Select
         id="model"
         name="model"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         onChange={(e) => onSelectModel(Number(e.target.value) || null)}
+        value={selectedModel?.toString() || ""}
       >
         <option value="">Seleccione un modelo</option>
         {models &&
           models.map((model) => (
-            <option
-              value={model.id}
-              key={model.id}
-              selected={selectedModel === model.id}
-            >
+            <option value={model.id} key={model.id}>
               {model.name}
             </option>
           ))}
-      </select>
+      </Select>
     </div>
   );
 };
@@ -280,30 +247,21 @@ const VersionSelector = ({
 
   return (
     <div className="mb-6 grid">
-      <label
-        htmlFor="version"
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        Versión
-      </label>
-      <select
+      <Label htmlFor="version">Versión</Label>
+      <Select
         id="version"
         name="version"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         onChange={(e) => onSelectVersion(Number(e.target.value) || null)}
+        value={selectedVersion?.toString() || ""}
       >
         <option value="">Seleccione una versión</option>
         {versions &&
           versions.map((version) => (
-            <option
-              value={version.id}
-              key={version.id}
-              selected={selectedVersion === version.id}
-            >
+            <option value={version.id} key={version.id}>
               {version.name}
             </option>
           ))}
-      </select>
+      </Select>
     </div>
   );
 };

@@ -21,7 +21,7 @@ export const DashboardLayoutContent: FC<DashboardLayoutContentProps> =
     // Adjust class based on collapse state after mount
     useEffect(() => {
       if (isCollapsed) {
-        setSidebarClass("lg:ml-[4.5rem]");
+        setSidebarClass("lg:ml-[4.0rem]");
       } else {
         setSidebarClass("lg:ml-64");
       }
