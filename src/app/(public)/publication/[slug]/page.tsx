@@ -1,5 +1,3 @@
-// import { useState } from "react";
-// import Image from "next/image";
 import Carousel from "@/src/app/components/publication/carousel";
 import { createClient } from "@/src/app/utils/supabase/client";
 import { getFiles, getPublicUrls } from "@/src/app/utils/supabase/storage";
