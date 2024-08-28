@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { HiCollection } from "react-icons/hi";
 
 import { createClient } from "@/src/app/utils/supabase/server";
-import Publication from "../../components/publication/publication";
+import PublicationList from "@/src/app/components/publication/list";
 
 export default async function MyPublications() {
   const supabase = createClient();
@@ -22,6 +22,8 @@ export default async function MyPublications() {
     )
     .eq("user_id", userId);
 
+  // TODO: handle publicationsError
+
   return (
     <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -32,9 +34,10 @@ export default async function MyPublications() {
         </div>
 
         <div className="flex flex-wrap gap-4 mx-auto max-w-5xl">
-          {publications?.map((publication) => (
-            <Publication publication={publication} supabase={supabase} />
-          ))}
+          {/* TODO: type error in publications due to Publication type and union with it relations (category, mark, model, etc.)  */}
+          {publications && (
+            <PublicationList publications={publications} supabase={supabase} />
+          )}
         </div>
       </div>
     </section>

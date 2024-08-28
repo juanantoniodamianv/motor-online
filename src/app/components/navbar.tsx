@@ -1,17 +1,22 @@
 import type { FC } from "react";
 import Image from "next/image";
 import { HiMenuAlt1, HiX } from "react-icons/hi";
-import { DarkThemeToggle, Navbar } from "flowbite-react";
+import { DarkThemeToggle, Navbar as FlowbiteNavbar } from "flowbite-react";
+
 import { useSidebarContext } from "@/src/context/sidebar-context";
 import { isSmallScreen } from "@/src/helpers";
 
-export const DashboardNavbar: FC<Record<string, string>> = function (props) {
+type NavbarProps = {
+  avatarUrl?: string;
+};
+
+export default function Navbar({ avatarUrl }: NavbarProps) {
   const { isCollapsed: isSidebarCollapsed, setCollapsed: setSidebarCollapsed } =
     useSidebarContext();
 
   return (
     <header>
-      <Navbar
+      <FlowbiteNavbar
         fluid
         className="fixed top-0 z-30 w-full border-b border-gray-200 bg-white p-0 dark:border-gray-700 dark:bg-gray-800 sm:p-0"
       >
@@ -30,25 +35,27 @@ export const DashboardNavbar: FC<Record<string, string>> = function (props) {
                   <HiX className="h-6 w-6" />
                 )}
               </button>
-              <Navbar.Brand href="/">
+              <FlowbiteNavbar.Brand href="/">
                 <span className="self-center whitespace-nowrap px-3 text-xl font-semibold dark:text-white">
                   Motor Online
                 </span>
-                <Image
-                  loader={() => props.avatarUrl}
-                  src={props.avatarUrl}
-                  width={30}
-                  height={30}
-                  alt="Picture of the account"
-                  className="rounded-full"
-                  unoptimized
-                />
-              </Navbar.Brand>
+                {avatarUrl && (
+                  <Image
+                    loader={() => avatarUrl}
+                    src={avatarUrl}
+                    width={30}
+                    height={30}
+                    alt="Picture of the account"
+                    className="rounded-full"
+                    unoptimized
+                  />
+                )}
+              </FlowbiteNavbar.Brand>
             </div>
             <DarkThemeToggle />
           </div>
         </div>
-      </Navbar>
+      </FlowbiteNavbar>
     </header>
   );
-};
+}

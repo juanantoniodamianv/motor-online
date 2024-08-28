@@ -10,15 +10,16 @@ import {
   HiUserGroup,
   HiCog,
   HiMail,
+  HiOutlineAdjustments,
 } from "react-icons/hi";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
-import { useSidebarContext } from "@/src/context/sidebar-context";
 
-import SignOutButton from "./sign-out-button";
+import { useSidebarContext } from "@/src/context/sidebar-context";
+import SignOutButton from "@/src/app/components/sign-out-button";
 
 const links = [
-  { name: "Inicio", href: "/dashboard", icon: HiHome },
+  { name: "Mi Panel", href: "/dashboard", icon: HiOutlineAdjustments },
   {
     name: "Nueva Publicación",
     href: "/dashboard/new-publication",
@@ -79,6 +80,15 @@ const DashboardSidebar: FC = function () {
           ))}
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
+          <Sidebar.Item
+            as={Link}
+            href="/"
+            prefetch={false}
+            icon={HiHome}
+            className="flex justify-start hover:bg-green-300"
+          >
+            Volver al Inicio
+          </Sidebar.Item>
           <SignOutButton />
         </Sidebar.ItemGroup>
       </Sidebar.Items>

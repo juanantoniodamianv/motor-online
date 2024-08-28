@@ -45,6 +45,23 @@ export const getFiles = async (
   return imagePaths;
 };
 
+export const getPublicUrls = async (
+  supabase: SupabaseClient,
+  files: string[]
+) => {
+  // TODO: probablemente sea mejor "use server" al inicio del documento y no en cada funcion
+  "use server";
+
+  let fileUrls = [];
+
+  for (const file of files) {
+    const fileUrl = await getPublicUrl(supabase, file);
+    fileUrls.push(fileUrl);
+  }
+
+  return fileUrls;
+};
+
 export const getPublicUrl = async (supabase: SupabaseClient, file: string) => {
   "use server";
   const { data } = supabase.storage

@@ -34,6 +34,7 @@ export type PublicationInsert = PublicationEntityInsert;
 
 export type PublicationEntity =
   Database["public"]["Tables"]["publications"]["Row"] & {
+    id: number;
     vehicle_categories: { name: string };
     vehicle_makes: { name: string };
     vehicle_models: { name: string };

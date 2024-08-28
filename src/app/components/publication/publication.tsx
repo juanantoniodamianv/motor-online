@@ -29,7 +29,7 @@ export default async function Publication({
       <div className="mt-4 flex justify-between gap-4">
         <div>
           <h3 className="text-sm text-gray-700">
-            <a href="#">
+            <a href={`/publication/${publication.slug_url}`}>
               <span aria-hidden="true" className="absolute inset-0"></span>
               {publication.title}
             </a>

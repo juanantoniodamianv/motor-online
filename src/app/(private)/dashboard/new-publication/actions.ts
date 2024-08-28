@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import slugify from "slugify";
-import { PublicationInsert } from "../../types";
-import { createClient } from "../../utils/supabase/server";
-import { uploadFiles } from "../../utils/supabase/storage";
+import { PublicationInsert } from "@/src/app/types";
+import { createClient } from "@/src/app/utils/supabase/server";
+import { uploadFiles } from "@/src/app/utils/supabase/storage";
 
 type PublicationField = {
   field: keyof PublicationInsert;

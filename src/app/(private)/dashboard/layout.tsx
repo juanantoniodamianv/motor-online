@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { SidebarProvider } from "@/src/context/sidebar-context";
-import { DashboardLayoutContent } from "@/src/app/components/dashboard-layout-content";
+import { DashboardLayoutContent } from "@/src/app/components/private-layout/layout-content";
 import { createClient } from "@/src/app/utils/supabase/server";
 
-import "../globals.css";
+import "../../globals.css";
 
 export const metadata: Metadata = {
   title: "Motor Online - Dashboard",
@@ -27,10 +27,14 @@ export default async function ({
   const avatarUrl = data.user.user_metadata.avatar_url;
 
   return (
-    <SidebarProvider>
-      <DashboardLayoutContent avatarUrl={avatarUrl}>
-        {children}
-      </DashboardLayoutContent>
-    </SidebarProvider>
+    <html lang="en">
+      <body>
+        <SidebarProvider>
+          <DashboardLayoutContent avatarUrl={avatarUrl}>
+            {children}
+          </DashboardLayoutContent>
+        </SidebarProvider>
+      </body>
+    </html>
   );
 }
