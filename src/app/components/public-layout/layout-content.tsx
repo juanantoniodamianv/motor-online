@@ -9,11 +9,13 @@ import { PublicSidebar } from "@/src/app/components/public-layout/sidebar-client
 
 type PublicLayoutContentProps = PropsWithChildren<{
   avatarUrl?: string;
+  authenticated: boolean;
 }>;
 
 export const PublicLayoutContent: FC<PublicLayoutContentProps> = function ({
   children,
   avatarUrl,
+  authenticated,
 }) {
   const { isCollapsed } = useSidebarContext();
   const [sidebarClass, setSidebarClass] = useState<string>(
@@ -33,7 +35,7 @@ export const PublicLayoutContent: FC<PublicLayoutContentProps> = function ({
     <>
       <Navbar avatarUrl={avatarUrl} />
       <div className="mt-16 flex items-start">
-        <PublicSidebar />
+        <PublicSidebar authenticated={authenticated} />
         <div
           id="main-content"
           className={twMerge(

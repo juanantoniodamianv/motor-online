@@ -7,19 +7,25 @@ import { usePathname } from "next/navigation";
 
 import { useSidebarContext } from "@/src/context/sidebar-context";
 import SignOutButton from "@/src/app/components/sign-out-button";
+import SignInButton from "../sign-in-button";
 
-const links = [
-  { name: "Inicio", href: "/", icon: HiHome },
-  {
-    name: "Mi Panel",
-    href: "/dashboard",
-    icon: HiCollection,
-  },
-];
-
-const PublicSidebar: FC = function () {
+export default function PublicSidebar({
+  authenticated,
+}: {
+  authenticated: boolean;
+}) {
   const { isCollapsed } = useSidebarContext();
   const pathname = usePathname();
+
+  const links = [{ name: "Inicio", href: "/", icon: HiHome }];
+
+  if (authenticated) {
+    links.push({
+      name: "Mi Panel",
+      href: "/dashboard",
+      icon: HiCollection,
+    });
+  }
 
   return (
     <Sidebar
@@ -51,11 +57,10 @@ const PublicSidebar: FC = function () {
           ))}
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
-          <SignOutButton />
+          {authenticated && <SignOutButton />}
+          {!authenticated && <SignInButton />}
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
   );
-};
-
-export default PublicSidebar;
+}

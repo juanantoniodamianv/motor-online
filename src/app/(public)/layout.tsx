@@ -16,6 +16,12 @@ export default async function RootLayout({
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.getUser();
+  let authenticated = false;
+
+  if (!error && data?.user) {
+    authenticated = true;
+  }
+
   // TODO: handle error
   const avatarUrl = data?.user?.user_metadata.avatar_url;
 
@@ -23,7 +29,10 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <SidebarProvider>
-          <PublicLayoutContent avatarUrl={avatarUrl}>
+          <PublicLayoutContent
+            avatarUrl={avatarUrl}
+            authenticated={authenticated}
+          >
             {children}
           </PublicLayoutContent>
         </SidebarProvider>
