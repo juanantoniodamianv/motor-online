@@ -45,14 +45,19 @@ export async function signup(formData: FormData) {
   redirect("/");
 }
 
-export async function signInWithGoogle() {
+export async function signInWithProvider(provider: "google" | "facebook") {
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
+    provider,
     options: {
       redirectTo: "http://localhost:3000/auth/callback",
     },
   });
+
+  if (error) {
+    console.error(error);
+    // TODO: handle error
+  }
 
   if (data.url) {
     redirect(data.url);
