@@ -1,5 +1,5 @@
 "use client";
-import { signup, signin, signInWithGoogle } from "./actions";
+import { signup, signin, signInWithProvider } from "./actions";
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -11,7 +11,7 @@ export default function LoginPage() {
         <form className="mt-4">
           <div className="flex justify-center mt-4">
             <button
-              formAction={signInWithGoogle}
+              formAction={() => signInWithProvider("google")}
               className="bg-red-500 text-white w-full py-2 rounded hover:bg-red-600 flex items-center justify-center space-x-4"
             >
               <svg
@@ -30,6 +30,32 @@ export default function LoginPage() {
                 ></path>
               </svg>
               <span>Continuar con Google</span>
+            </button>
+          </div>
+        </form>
+
+        <form className="mt-4">
+          <div className="flex justify-center mt-4">
+            <button
+              formAction={() => signInWithProvider("facebook")}
+              className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 flex items-center justify-center space-x-4"
+            >
+              <svg
+                className="w-4 h-4"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fab"
+                data-icon="facebook"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
+              >
+                <path
+                  fill="currentColor"
+                  d="M279.14 288l14.22-92.66h-88.91V127.5c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S257.12 0 225.36 0c-73.14 0-121.09 44.38-121.09 124.72v70.62H22.89V288h81.38v224h100.17V288z"
+                ></path>
+              </svg>
+              <span>Continuar con Facebook</span>
             </button>
           </div>
         </form>
