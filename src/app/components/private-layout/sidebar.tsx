@@ -13,9 +13,9 @@ import {
 } from "react-icons/hi";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
-import { useSidebarContext } from "@/src/context/sidebar-context";
 
-import SignOutButton from "./sign-out-button";
+import { useSidebarContext } from "@/src/context/sidebar-context";
+import SignOutButton from "@/src/app/components/sign-out-button";
 
 const links = [
   { name: "Inicio", href: "/dashboard", icon: HiHome },

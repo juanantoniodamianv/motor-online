@@ -2,10 +2,10 @@
 
 import { useEffect, useState, type FC, type PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
-import { useSidebarContext } from "@/src/context/sidebar-context";
 
-import { DashboardNavbar } from "@/src/app/components/navbar";
-import { DashboardSidebar } from "@/src/app/components/sidebar-client";
+import { useSidebarContext } from "@/src/context/sidebar-context";
+import Navbar from "@/src/app/components/navbar";
+import { DashboardSidebar } from "@/src/app/components/private-layout/sidebar-client";
 
 type DashboardLayoutContentProps = PropsWithChildren<{
   avatarUrl: string;
@@ -29,7 +29,7 @@ export const DashboardLayoutContent: FC<DashboardLayoutContentProps> =
 
     return (
       <>
-        <DashboardNavbar avatarUrl={avatarUrl} />
+        <Navbar avatarUrl={avatarUrl} />
         <div className="mt-16 flex items-start">
           <DashboardSidebar />
           <div

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { SidebarProvider } from "@/src/context/sidebar-context";
-import { DashboardLayoutContent } from "@/src/app/components/dashboard-layout-content";
+import { DashboardLayoutContent } from "@/src/app/components/private-layout/layout-content";
 import { createClient } from "@/src/app/utils/supabase/server";
 
 import "../../globals.css";
