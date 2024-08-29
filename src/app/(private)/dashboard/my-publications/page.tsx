@@ -36,7 +36,11 @@ export default async function MyPublications() {
         <div className="flex flex-wrap gap-4 mx-auto max-w-5xl">
           {/* TODO: type error in publications due to Publication type and union with it relations (category, mark, model, etc.)  */}
           {publications && (
-            <PublicationList publications={publications} supabase={supabase} />
+            <PublicationList
+              edit={true}
+              publications={publications}
+              supabase={supabase}
+            />
           )}
         </div>
       </div>

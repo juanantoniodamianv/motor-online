@@ -6,11 +6,13 @@ import { getFiles, getPublicUrl } from "../../utils/supabase/storage";
 type PublicationProps = {
   publication: Publication;
   supabase: SupabaseClient;
+  edit: boolean;
 };
 
 export default async function Publication({
   publication,
   supabase,
+  edit,
 }: PublicationProps) {
   const files = await getFiles(supabase, publication.id);
   const fileUrl = await getPublicUrl(supabase, files[0]);
@@ -29,10 +31,19 @@ export default async function Publication({
       <div className="mt-4 flex justify-between gap-4">
         <div>
           <h3 className="text-sm text-gray-700">
-            <a href={`/publication/${publication.slug_url}`}>
-              <span aria-hidden="true" className="absolute inset-0"></span>
-              {publication.title}
-            </a>
+            {edit && (
+              <a href={`/dashboard/edit-publication/${publication.id}`}>
+                <span aria-hidden="true" className="absolute inset-0"></span>
+                {publication.title}
+              </a>
+            )}
+
+            {!edit && (
+              <a href={`/publication/${publication.slug_url}`}>
+                <span aria-hidden="true" className="absolute inset-0"></span>
+                {publication.title}
+              </a>
+            )}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
             {publication.vehicle_makes.name} · {publication.vehicle_models.name}

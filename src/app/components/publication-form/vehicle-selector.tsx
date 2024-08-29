@@ -1,7 +1,19 @@
 import { createClient } from "@/src/app/utils/supabase/server";
 import VehicleDetailSelector from "./vehicle-detail-selector";
 
-export default async function VehicleSelector() {
+type VehicleSelectorProps = {
+  category?: number;
+  make?: number;
+  model?: number;
+  version?: number;
+};
+
+export default async function VehicleSelector({
+  category,
+  make,
+  model,
+  version,
+}: VehicleSelectorProps) {
   const supabase = createClient();
   const { data: vehicleCategories, error } = await supabase
     .from("vehicle_categories")
@@ -12,16 +24,16 @@ export default async function VehicleSelector() {
   }
 
   const existentSelection = {
-    category: 1,
-    make: 4,
-    model: 35,
-    version: 458,
+    category,
+    make,
+    model,
+    version,
   };
 
   return (
     <VehicleDetailSelector
       vehicleCategories={vehicleCategories}
-      // existentSelection={existentSelection}
+      existentSelection={existentSelection}
     />
   );
 }
