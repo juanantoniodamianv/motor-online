@@ -34,6 +34,8 @@ const publicationModel: PublicationField[] = [
   { field: "unique_owner", required: false },
   { field: "updated_at", required: false },
   { field: "year", required: false },
+  { field: "city", required: false },
+  { field: "province", required: false },
 ];
 
 export async function createPublication(formData: FormData) {
@@ -70,6 +72,7 @@ export async function createPublication(formData: FormData) {
     throw new Error("title is a required field");
   }
 
+  // TODO: include id to avoid conflicts with duplicate titles
   rawFormData.slug_url = slugifyAsUrl(rawFormData.title);
 
   // TODO: check types

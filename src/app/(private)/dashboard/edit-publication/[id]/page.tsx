@@ -24,6 +24,7 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
     .single();
 
   const infoSectionDefaultValues: Record<string, string | number> = {};
+  const localizationSectionDefaultValues: Record<string, string | number> = {};
 
   if (publication?.data?.title) {
     infoSectionDefaultValues["title"] = publication?.data?.title;
@@ -69,6 +70,14 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
     infoSectionDefaultValues["version"] = publication?.data?.version;
   }
 
+  if (publication?.data?.province) {
+    localizationSectionDefaultValues["province"] = publication?.data?.province;
+  }
+
+  if (publication?.data?.city) {
+    localizationSectionDefaultValues["city"] = publication?.data?.city;
+  }
+
   console.log({ publication });
 
   console.log(publication.data);
@@ -96,6 +105,9 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
 
                 <LocationSection
                   isActiveTab={parseInt(activeTab.split("-")[0]) === 2}
+                  localizationSectionDefaultValues={
+                    localizationSectionDefaultValues
+                  }
                 />
               </form>
             </div>
