@@ -13,11 +13,13 @@ type ConfirmSectionDefaultValuesProps = {
 
 type ConfirmSectionProps = SectionProps & {
   confirmSectionDefaultValues?: ConfirmSectionDefaultValuesProps;
+  labelForward?: string;
 };
 
 export default function ConfirmSection({
   isActiveTab,
   confirmSectionDefaultValues,
+  labelForward,
 }: ConfirmSectionProps) {
   return (
     <div id="confirm-section" className={isActiveTab ? "block" : "hidden"}>
@@ -96,7 +98,7 @@ export default function ConfirmSection({
         hrefBack="?tab=3-media"
         labelBack="Atrás"
         hrefForward="?tab=5-done"
-        labelForward="Crear publicación"
+        labelForward={labelForward || "Crear publicación"}
         submit={true}
       />
     </div>

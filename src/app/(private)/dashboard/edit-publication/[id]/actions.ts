@@ -78,3 +78,8 @@ export async function getPublicationValues({
     confirmSectionDefaultValues,
   };
 }
+
+export async function updatePublication() {
+  "use server";
+  throw "not implemented";
+}

@@ -7,7 +7,7 @@ import ImageSection from "@/src/app/components/publication-form/image-section";
 import InfoSection from "@/src/app/components/publication-form/info-section";
 import LocationSection from "@/src/app/components/publication-form/location-section";
 
-import { getPublicationValues } from "./actions";
+import { getPublicationValues, updatePublication } from "./actions";
 
 interface Props {
   params: { id: string };
@@ -37,7 +37,7 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
 
             <div className="flex justify-center min-h-10 mt-6 w-full">
               <form
-                // action={createPublication}
+                action={updatePublication}
                 className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8"
               >
                 <InfoSection
@@ -59,6 +59,7 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
                 <ConfirmSection
                   isActiveTab={parseInt(activeTab.split("-")[0]) === 4}
                   confirmSectionDefaultValues={confirmSectionDefaultValues}
+                  labelForward="Guardar cambios"
                 />
               </form>
             </div>
