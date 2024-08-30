@@ -6,7 +6,8 @@ import ConfirmSection from "@/src/app/components/publication-form/confirm-sectio
 import ImageSection from "@/src/app/components/publication-form/image-section";
 import InfoSection from "@/src/app/components/publication-form/info-section";
 import LocationSection from "@/src/app/components/publication-form/location-section";
-import { createClient } from "@/src/app/utils/supabase/server";
+
+import { getPublicationValues } from "./actions";
 
 interface Props {
   params: { id: string };
@@ -17,97 +18,11 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
   const activeTab: SectionTab =
     (searchParams.tab as SectionTab) || TabNames.info;
 
-  const supabase = createClient();
-  const publication = await supabase
-    .from("publications")
-    .select("*")
-    .eq("id", params.id)
-    .limit(1)
-    .single();
-
-  const infoSectionDefaultValues: Record<string, string | number> = {};
-  const localizationSectionDefaultValues: Record<string, string | number> = {};
-  const confirmSectionDefaultValues: Record<string, string | number | boolean> =
-    {};
-
-  if (publication?.data?.title) {
-    infoSectionDefaultValues["title"] = publication?.data?.title;
-  }
-
-  if (publication?.data?.condition) {
-    infoSectionDefaultValues["condition"] = publication?.data?.condition;
-  }
-
-  if (publication?.data?.description) {
-    infoSectionDefaultValues["description"] = publication?.data?.description;
-  }
-
-  if (publication?.data?.year) {
-    infoSectionDefaultValues["year"] = publication?.data?.year;
-  }
-
-  if (publication?.data?.km) {
-    infoSectionDefaultValues["km"] = publication?.data?.km;
-  }
-
-  if (publication?.data?.transmision) {
-    infoSectionDefaultValues["transmision"] = publication?.data?.transmision;
-  }
-
-  if (publication?.data?.engine) {
-    infoSectionDefaultValues["engine"] = publication?.data?.engine;
-  }
-
-  if (publication?.data?.category) {
-    infoSectionDefaultValues["category"] = publication?.data?.category;
-  }
-
-  if (publication?.data?.make) {
-    infoSectionDefaultValues["make"] = publication?.data?.make;
-  }
-
-  if (publication?.data?.model) {
-    infoSectionDefaultValues["model"] = publication?.data?.model;
-  }
-
-  if (publication?.data?.version) {
-    infoSectionDefaultValues["version"] = publication?.data?.version;
-  }
-
-  if (publication?.data?.province) {
-    localizationSectionDefaultValues["province"] = publication?.data?.province;
-  }
-
-  if (publication?.data?.city) {
-    localizationSectionDefaultValues["city"] = publication?.data?.city;
-  }
-
-  if (publication?.data?.currency_type) {
-    confirmSectionDefaultValues["currency_type"] =
-      publication?.data?.currency_type;
-  }
-
-  if (publication?.data?.price) {
-    confirmSectionDefaultValues["price"] = publication?.data?.price;
-  }
-
-  if (publication?.data?.market_discount) {
-    confirmSectionDefaultValues["market_discount"] =
-      publication?.data?.market_discount;
-  }
-
-  if (publication?.data?.unique_owner) {
-    confirmSectionDefaultValues["unique_owner"] =
-      publication?.data?.unique_owner;
-  }
-
-  if (publication?.data?.swap) {
-    confirmSectionDefaultValues["swap"] = publication?.data?.swap;
-  }
-
-  console.log({ publication });
-
-  console.log(publication.data);
+  const {
+    infoSectionDefaultValues,
+    localizationSectionDefaultValues,
+    confirmSectionDefaultValues,
+  } = await getPublicationValues({ publicationId: params.id });
 
   return (
     <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
