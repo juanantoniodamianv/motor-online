@@ -2,6 +2,8 @@ import Breadcrumb, {
   SectionTab,
   TabNames,
 } from "@/src/app/components/publication-form/breadcrumb";
+import ConfirmSection from "@/src/app/components/publication-form/confirm-section";
+import ImageSection from "@/src/app/components/publication-form/image-section";
 import InfoSection from "@/src/app/components/publication-form/info-section";
 import LocationSection from "@/src/app/components/publication-form/location-section";
 import { createClient } from "@/src/app/utils/supabase/server";
@@ -25,6 +27,8 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
 
   const infoSectionDefaultValues: Record<string, string | number> = {};
   const localizationSectionDefaultValues: Record<string, string | number> = {};
+  const confirmSectionDefaultValues: Record<string, string | number | boolean> =
+    {};
 
   if (publication?.data?.title) {
     infoSectionDefaultValues["title"] = publication?.data?.title;
@@ -78,6 +82,29 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
     localizationSectionDefaultValues["city"] = publication?.data?.city;
   }
 
+  if (publication?.data?.currency_type) {
+    confirmSectionDefaultValues["currency_type"] =
+      publication?.data?.currency_type;
+  }
+
+  if (publication?.data?.price) {
+    confirmSectionDefaultValues["price"] = publication?.data?.price;
+  }
+
+  if (publication?.data?.market_discount) {
+    confirmSectionDefaultValues["market_discount"] =
+      publication?.data?.market_discount;
+  }
+
+  if (publication?.data?.unique_owner) {
+    confirmSectionDefaultValues["unique_owner"] =
+      publication?.data?.unique_owner;
+  }
+
+  if (publication?.data?.swap) {
+    confirmSectionDefaultValues["swap"] = publication?.data?.swap;
+  }
+
   console.log({ publication });
 
   console.log(publication.data);
@@ -108,6 +135,15 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
                   localizationSectionDefaultValues={
                     localizationSectionDefaultValues
                   }
+                />
+
+                <ImageSection
+                  isActiveTab={parseInt(activeTab.split("-")[0]) === 3}
+                />
+
+                <ConfirmSection
+                  isActiveTab={parseInt(activeTab.split("-")[0]) === 4}
+                  confirmSectionDefaultValues={confirmSectionDefaultValues}
                 />
               </form>
             </div>

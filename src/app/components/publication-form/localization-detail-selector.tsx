@@ -11,7 +11,7 @@ export default function LocalizationDetailSelector({
   existentSelection,
 }: {
   provinces: Province[];
-  existentSelection: {
+  existentSelection?: {
     province?: number;
     city?: number;
   };

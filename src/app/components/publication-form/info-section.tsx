@@ -19,7 +19,7 @@ type InfoSectionDefaultValuesProps = {
 };
 
 type InfoSectionProps = SectionProps & {
-  infoSectionDefaultValues: InfoSectionDefaultValuesProps;
+  infoSectionDefaultValues?: InfoSectionDefaultValuesProps;
 };
 
 export default function InfoSection({

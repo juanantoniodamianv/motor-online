@@ -8,7 +8,7 @@ export type LocalizationSectionDefaultValuesProps = {
 };
 
 type LocationSectionProps = SectionProps & {
-  localizationSectionDefaultValues: LocalizationSectionDefaultValuesProps;
+  localizationSectionDefaultValues?: LocalizationSectionDefaultValuesProps;
 };
 
 export default function LocationSection({

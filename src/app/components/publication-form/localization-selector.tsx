@@ -5,7 +5,7 @@ import { LocalizationSectionDefaultValuesProps } from "./location-section";
 export default async function LocalizationSelector({
   localizationSectionDefaultValues,
 }: {
-  localizationSectionDefaultValues: LocalizationSectionDefaultValuesProps;
+  localizationSectionDefaultValues?: LocalizationSectionDefaultValuesProps;
 }) {
   const supabase = createClient();
   const { data, error } = await supabase.from("provinces").select();
