@@ -21,6 +21,7 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
   const {
     infoSectionDefaultValues,
     localizationSectionDefaultValues,
+    imageSectionDefaultValues,
     confirmSectionDefaultValues,
   } = await getPublicationValues({ publicationId: params.id });
 
@@ -54,6 +55,7 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
 
                 <ImageSection
                   isActiveTab={parseInt(activeTab.split("-")[0]) === 3}
+                  imageSectionDefaultValues={imageSectionDefaultValues}
                 />
 
                 <ConfirmSection

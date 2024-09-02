@@ -96,7 +96,22 @@ export async function createPublication(formData: FormData) {
   if (fileArray.length > 0) {
     const bucket = "publication_files";
     const folder = publicationId.toString();
-    await uploadFiles(supabase, bucket, folder, fileArray);
+    const uploadedFiles = await uploadFiles(
+      supabase,
+      bucket,
+      folder,
+      fileArray
+    );
+
+    // Insert publication file rows
+    if (uploadedFiles) {
+      for (const uploadedFile of uploadedFiles) {
+        await supabase.from("publication_files").insert({
+          publication: publicationId,
+          file_url: uploadedFile.path,
+        });
+      }
+    }
   }
 
   redirect(`?tab=5-done&publication_id=${publicationId}`);

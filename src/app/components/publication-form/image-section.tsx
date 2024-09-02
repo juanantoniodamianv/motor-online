@@ -1,11 +1,53 @@
 "use client";
-import { useState, useCallback, ChangeEvent } from "react";
+import { useState, useCallback, ChangeEvent, useEffect, useRef } from "react";
 import { HiCloudUpload, HiX } from "react-icons/hi";
+
 import Navigation from "./navigation";
 import { type SectionProps } from "./types";
+import { createClient } from "../../utils/supabase/client";
+import { deleteFileAndRow } from "../../utils/supabase/storage-client";
 
-export default function ImageSection({ isActiveTab }: SectionProps) {
+type ImageSectionDefaultValuesProps = {
+  id: number;
+  file_url: string;
+}[];
+
+type ImageSectionProps = SectionProps & {
+  imageSectionDefaultValues?: ImageSectionDefaultValuesProps;
+};
+
+export default function ImageSection({
+  isActiveTab,
+  imageSectionDefaultValues,
+}: ImageSectionProps) {
+  const supabase = createClient();
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const effectRan = useRef(false);
+
+  // Load images that already exist in the publication (edit publication only!)
+  const handleLoadDefaultValues = useCallback(() => {
+    if (!imageSectionDefaultValues || imageSectionDefaultValues?.length === 0) {
+      return;
+    }
+
+    for (const file of imageSectionDefaultValues) {
+      const {
+        data: { publicUrl },
+      } = supabase.storage
+        .from("publication_files")
+        .getPublicUrl(file.file_url);
+
+      setPreviewImages((prev) => [...prev, publicUrl]);
+    }
+  }, [imageSectionDefaultValues, supabase.storage]);
+
+  useEffect(() => {
+    // Hack to prevent run effect twice
+    if (effectRan.current === false) {
+      handleLoadDefaultValues();
+      effectRan.current = true;
+    }
+  }, [handleLoadDefaultValues]);
 
   const handleFileChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +68,17 @@ export default function ImageSection({ isActiveTab }: SectionProps) {
     []
   );
 
-  const handleDeleteImage = (index: number) => {
+  const handleDeleteImage = async (index: number) => {
+    // Remove image from state
     setPreviewImages((prev) => prev.filter((_, i) => i !== index));
+
+    const filePublicUrl = previewImages[index];
+
+    // TODO: agregar un modal de confirmación indicando que la imagen (si existe en el storage: 'se esta editando la publicacion') se eliminará definitivamente, mensaje propuesto: "Este archivo se eliminará definitivamente de la publicación, no podrá deshacer esta acción."
+    // If the image comes from a URL, try to delete it from storage
+    if (filePublicUrl.startsWith("https://")) {
+      await deleteFileAndRow({ supabase, filePublicUrl });
+    }
   };
 
   return (

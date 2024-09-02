@@ -8,7 +8,7 @@ export async function getPublicationValues({
   const supabase = createClient();
   const publication = await supabase
     .from("publications")
-    .select("*")
+    .select("*, publication_files (id, file_url)")
     .eq("id", publicationId)
     .limit(1)
     .single();
@@ -72,9 +72,12 @@ export async function getPublicationValues({
     );
   }
 
+  const imageSectionDefaultValues = publication.data?.publication_files;
+
   return {
     infoSectionDefaultValues,
     localizationSectionDefaultValues,
+    imageSectionDefaultValues,
     confirmSectionDefaultValues,
   };
 }
