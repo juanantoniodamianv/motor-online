@@ -50,6 +50,38 @@ export type Database = {
         }
         Relationships: []
       }
+      publication_files: {
+        Row: {
+          cover_image: boolean | null
+          created_at: string
+          file_url: string
+          id: number
+          publication: number
+        }
+        Insert: {
+          cover_image?: boolean | null
+          created_at?: string
+          file_url: string
+          id?: number
+          publication: number
+        }
+        Update: {
+          cover_image?: boolean | null
+          created_at?: string
+          file_url?: string
+          id?: number
+          publication?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publication_files_publication_fkey"
+            columns: ["publication"]
+            isOneToOne: false
+            referencedRelation: "publications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       publications: {
         Row: {
           category: number
