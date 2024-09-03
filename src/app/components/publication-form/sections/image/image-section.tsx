@@ -2,10 +2,10 @@
 import { useState, useCallback, ChangeEvent, useEffect, useRef } from "react";
 import { HiCloudUpload, HiX } from "react-icons/hi";
 
-import Navigation from "./navigation";
-import { type SectionProps } from "./types";
-import { createClient } from "../../utils/supabase/client";
-import { deleteFileAndRow } from "../../utils/supabase/storage-client";
+import Navigation from "@/src/app/components/publication-form/navigation";
+import { type SectionProps } from "@/src/app/components/publication-form/types";
+import { createClient } from "@/src/app/utils/supabase/client";
+import { deleteFileAndRow } from "@/src/app/utils/supabase/storage-client";
 
 type ImageSectionDefaultValuesProps = {
   id: number;

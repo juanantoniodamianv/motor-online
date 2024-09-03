@@ -7,8 +7,8 @@ import {
   VehicleMake,
   VehicleModel,
   VehicleVersion,
-} from "../../types";
-import { createClient } from "../../utils/supabase/client";
+} from "@/src/app/types";
+import { createClient } from "@/src/app/utils/supabase/client";
 
 const supabase = createClient();
 

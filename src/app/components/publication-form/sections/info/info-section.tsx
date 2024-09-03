@@ -1,10 +1,10 @@
 import { Label, Radio, Select, Textarea, TextInput } from "flowbite-react";
 
-import Navigation from "./navigation";
-import VehicleSelector from "./vehicle-selector";
-import { type SectionProps } from "./types";
-import YearSection from "./year-section";
-import KmSection from "./km-section";
+import InputNumber from "@/src/app/components/form/input-number";
+
+import Navigation from "../../navigation";
+import VehicleSelector from "@/src/app/components/publication-form/sections/info/vehicle-selector";
+import { type SectionProps } from "../../types";
 
 type InfoSectionDefaultValuesProps = {
   title?: string;
@@ -88,11 +88,21 @@ export default function InfoSection({
       </div>
 
       <div className="mb-6 grid grid-cols-1">
-        <YearSection/>
+        <InputNumber
+          name="year"
+          defaultValue={infoSectionDefaultValues?.year}
+          label="Año / Modelo"
+          useThousandSeparator={false}
+        />
       </div>
 
       <div className="mb-6 grid grid-cols-1">
-        <KmSection/>
+        <InputNumber
+          name="km"
+          defaultValue={infoSectionDefaultValues?.km}
+          label="Kilometros"
+          useThousandSeparator={true}
+        />
       </div>
 
       <div className="mb-6 grid grid-cols-1">

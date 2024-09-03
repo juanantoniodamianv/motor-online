@@ -1,6 +1,6 @@
 import LocalizationSelector from "./localization-selector";
-import Navigation from "./navigation";
-import { type SectionProps } from "./types";
+import Navigation from "../../navigation";
+import { type SectionProps } from "../../types";
 
 export type LocalizationSectionDefaultValuesProps = {
   province?: number;

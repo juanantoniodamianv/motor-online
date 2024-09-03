@@ -1,8 +1,10 @@
-import { Checkbox, Label, Radio, TextInput } from "flowbite-react";
-import Navigation from "./navigation";
+import { Checkbox, Label, Radio } from "flowbite-react";
+
+import InputNumber from "@/src/app/components/form/input-number";
+import Navigation from "@/src/app/components/publication-form/navigation";
+import { type SectionProps } from "@/src/app/components/publication-form/types";
+
 import SwapSection from "./swap-section";
-import { type SectionProps } from "./types";
-import PriceSection from "./price-section";
 
 type ConfirmSectionDefaultValuesProps = {
   currency_type?: string;
@@ -54,8 +56,15 @@ export default function ConfirmSection({
             <Label htmlFor="usd">USD$</Label>
           </div>
         </div>
-        
-        <PriceSection/>
+
+        <div className="mb-6 grid grid-cols-1">
+          <InputNumber
+            name="price"
+            defaultValue={confirmSectionDefaultValues?.price}
+            label="Precio / Valor"
+            useThousandSeparator={true}
+          />
+        </div>
       </div>
 
       <div className="mb-6 grid grid-cols-1">
