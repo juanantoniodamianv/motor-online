@@ -35,9 +35,9 @@ export type PublicationInsert = PublicationEntityInsert;
 export type PublicationEntity =
   Database["public"]["Tables"]["publications"]["Row"] & {
     id: number;
-    vehicle_categories: { name: string };
-    vehicle_makes: { name: string };
-    vehicle_models: { name: string };
-    vehicle_versions: { name: string };
+    vehicle_categories: { name: string | null } | null; // TODO: probablemente sea un error al traer los tipos de supabase, ya que esta declarado como NOT NULLABLE en supabase. El tipo correcto deberia ser: { name: string } | null
+    vehicle_makes: { name: string | null } | null;
+    vehicle_models: { name: string | null } | null;
+    vehicle_versions: { name: string | null } | null;
   };
 export type Publication = PublicationEntity;

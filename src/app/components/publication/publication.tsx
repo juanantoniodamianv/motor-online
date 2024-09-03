@@ -1,21 +1,18 @@
-import { SupabaseClient } from "@supabase/supabase-js";
 import Image from "next/image";
 import type { Publication } from "../../types";
 import { getFiles, getPublicUrl } from "../../utils/supabase/storage";
 
 type PublicationProps = {
   publication: Publication;
-  supabase: SupabaseClient;
   edit: boolean;
 };
 
 export default async function Publication({
   publication,
-  supabase,
   edit,
 }: PublicationProps) {
-  const files = await getFiles(supabase, publication.id);
-  const fileUrl = await getPublicUrl(supabase, files[0]);
+  const files = await getFiles(publication.id);
+  const fileUrl = await getPublicUrl(files[0]);
 
   return (
     <div className="group relative w-64" key={publication.id}>
@@ -46,7 +43,8 @@ export default async function Publication({
             )}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            {publication.vehicle_makes.name} · {publication.vehicle_models.name}
+            {publication.vehicle_makes?.name} ·{" "}
+            {publication.vehicle_models?.name}
           </p>
         </div>
         <p className="text-sm font-medium dark:text-white text-black">

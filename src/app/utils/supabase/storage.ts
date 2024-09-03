@@ -1,13 +1,13 @@
-import { SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "./server";
 
 export const uploadFiles = async (
-  supabase: SupabaseClient,
   bucket: "publication_files",
   folder: string,
   files: File[]
 ) => {
   "use server";
   try {
+    const supabase = createClient();
     const uploadedFiles = [];
 
     for (const file of files) {
@@ -29,12 +29,9 @@ export const uploadFiles = async (
   }
 };
 
-export const getFiles = async (
-  supabase: SupabaseClient,
-  publicationId: number,
-  limit: number = 1
-) => {
+export const getFiles = async (publicationId: number, limit: number = 1) => {
   "use server";
+  const supabase = createClient();
   const { data, error } = await supabase.storage
     .from("publication_files")
     .list(`${publicationId.toString()}`, {
@@ -51,25 +48,22 @@ export const getFiles = async (
   return imagePaths;
 };
 
-export const getPublicUrls = async (
-  supabase: SupabaseClient,
-  files: string[]
-) => {
+export const getPublicUrls = async (files: string[]) => {
   // TODO: probablemente sea mejor "use server" al inicio del documento y no en cada funcion
   "use server";
-
   let fileUrls = [];
 
   for (const file of files) {
-    const fileUrl = await getPublicUrl(supabase, file);
+    const fileUrl = await getPublicUrl(file);
     fileUrls.push(fileUrl);
   }
 
   return fileUrls;
 };
 
-export const getPublicUrl = async (supabase: SupabaseClient, file: string) => {
+export const getPublicUrl = async (file: string) => {
   "use server";
+  const supabase = createClient();
   const { data } = supabase.storage
     .from("publication_files")
     .getPublicUrl(file);
