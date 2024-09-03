@@ -8,16 +8,22 @@ export const uploadFiles = async (
 ) => {
   "use server";
   try {
+    const uploadedFiles = [];
+
     for (const file of files) {
-      const { error } = await supabase.storage
+      const { data, error } = await supabase.storage
         .from(bucket)
         .upload(`${folder}/${file.name}`, file);
 
       if (error) {
         console.error("Error uploading file:", error.message);
         continue;
+      } else {
+        uploadedFiles.push(data);
       }
     }
+
+    return uploadedFiles;
   } catch (error) {
     console.error("Error uploading files:", error);
   }

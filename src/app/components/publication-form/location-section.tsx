@@ -2,10 +2,24 @@ import LocalizationSelector from "./localization-selector";
 import Navigation from "./navigation";
 import { type SectionProps } from "./types";
 
-export default function LocationSection({ isActiveTab }: SectionProps) {
+export type LocalizationSectionDefaultValuesProps = {
+  province?: number;
+  city?: number;
+};
+
+type LocationSectionProps = SectionProps & {
+  localizationSectionDefaultValues?: LocalizationSectionDefaultValuesProps;
+};
+
+export default function LocationSection({
+  isActiveTab,
+  localizationSectionDefaultValues,
+}: LocationSectionProps) {
   return (
     <div id="localization-section" className={isActiveTab ? "block" : "hidden"}>
-      <LocalizationSelector />
+      <LocalizationSelector
+        localizationSectionDefaultValues={localizationSectionDefaultValues}
+      />
 
       <Navigation
         hrefCancel="/dashboard"

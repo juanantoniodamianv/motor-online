@@ -3,8 +3,12 @@
 import React, { useState } from "react";
 import { Checkbox, Label, TextInput } from "flowbite-react";
 
-export default function SwapSection() {
-  const [isSwapChecked, setIsSwapChecked] = useState(false);
+export default function SwapSection({
+  defaultValue,
+}: {
+  defaultValue?: boolean;
+}) {
+  const [isSwapChecked, setIsSwapChecked] = useState(defaultValue);
 
   const handleSwapCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsSwapChecked(e.target.checked);

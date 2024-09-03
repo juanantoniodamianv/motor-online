@@ -12,8 +12,8 @@ export default function LocalizationDetailSelector({
 }: {
   provinces: Province[];
   existentSelection?: {
-    province: number;
-    city: number;
+    province?: number;
+    city?: number;
   };
 }) {
   const [selectedProvince, setSelectedProvince] = useState<number | null>(
@@ -29,10 +29,12 @@ export default function LocalizationDetailSelector({
       <ProvinceSelector
         provinces={provinces}
         onSelectProvince={setSelectedProvince}
+        selectedProvince={selectedProvince}
       />
       <CitySelector
         province={selectedProvince}
         onSelectedCity={setSelectedCity}
+        selectedCity={selectedCity}
       />
     </>
   );
@@ -41,9 +43,11 @@ export default function LocalizationDetailSelector({
 function ProvinceSelector({
   provinces,
   onSelectProvince,
+  selectedProvince,
 }: {
   provinces: Province[];
   onSelectProvince: Dispatch<SetStateAction<number | null>>;
+  selectedProvince: number | null;
 }) {
   return (
     <div className="mb-6 grid">
@@ -52,6 +56,7 @@ function ProvinceSelector({
         id="province"
         name="province"
         onChange={(e) => onSelectProvince(Number(e.target.value) || null)}
+        value={selectedProvince?.toString() || ""}
       >
         <option value="">Seleccione una provincia</option>
         {provinces.map((province) => (
@@ -67,9 +72,11 @@ function ProvinceSelector({
 function CitySelector({
   province,
   onSelectedCity,
+  selectedCity,
 }: {
   province: number | null;
   onSelectedCity: Dispatch<SetStateAction<number | null>>;
+  selectedCity: number | null;
 }) {
   const [cities, setCities] = useState<City[]>([]);
 
@@ -98,6 +105,7 @@ function CitySelector({
         id="city"
         name="city"
         onChange={(e) => onSelectedCity(Number(e.target.value) || null)}
+        value={selectedCity?.toString() || ""}
       >
         <option value="">Seleccione una ciudad</option>
         {cities &&

@@ -1,7 +1,12 @@
 import { createClient } from "@/src/app/utils/supabase/server";
 import LocalizationDetailSelector from "@/src/app/components/publication-form/localization-detail-selector";
+import { LocalizationSectionDefaultValuesProps } from "./location-section";
 
-export default async function LocalizationSelector() {
+export default async function LocalizationSelector({
+  localizationSectionDefaultValues,
+}: {
+  localizationSectionDefaultValues?: LocalizationSectionDefaultValuesProps;
+}) {
   const supabase = createClient();
   const { data, error } = await supabase.from("provinces").select();
 
@@ -12,7 +17,7 @@ export default async function LocalizationSelector() {
   return (
     <LocalizationDetailSelector
       provinces={data}
-      //existentSelection={existentSelection}
+      existentSelection={localizationSectionDefaultValues}
     />
   );
 }

@@ -17,11 +17,11 @@ export default function VehicleDetailSelector({
   existentSelection,
 }: {
   vehicleCategories: VehicleCategory[];
-  existentSelection?: {
-    category: number;
-    make: number;
-    model: number;
-    version: number;
+  existentSelection: {
+    category?: number;
+    make?: number;
+    model?: number;
+    version?: number;
   };
 }) {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(
@@ -37,21 +37,39 @@ export default function VehicleDetailSelector({
     existentSelection?.version || null
   );
 
+  const handleSelectCategory = (val: number | null) => {
+    setSelectedCategory(val);
+    setSelectedMake(null);
+    setSelectedModel(null);
+    setSelectedVersion(null);
+  };
+
+  const handleSelectMake = (val: number | null) => {
+    setSelectedMake(val);
+    setSelectedModel(null);
+    setSelectedVersion(null);
+  };
+
+  const handleSelectModel = (val: number | null) => {
+    setSelectedModel(val);
+    setSelectedVersion(null);
+  };
+
   return (
     <>
       <CategorySelector
         categories={vehicleCategories}
-        onSelectCategory={setSelectedCategory}
+        onSelectCategory={(val: number | null) => handleSelectCategory(val)}
         selectedCategory={selectedCategory}
       />
       <MakeSelector
         categoryId={selectedCategory}
-        onSelectMake={setSelectedMake}
+        onSelectMake={(val: number | null) => handleSelectMake(val)}
         selectedMake={selectedMake}
       />
       <ModelSelector
         makeId={selectedMake}
-        onSelectModel={setSelectedModel}
+        onSelectModel={(val: number | null) => handleSelectModel(val)}
         selectedModel={selectedModel}
       />
       <VersionSelector
@@ -69,7 +87,7 @@ const CategorySelector = ({
   selectedCategory,
 }: {
   categories: VehicleCategory[];
-  onSelectCategory: Dispatch<SetStateAction<number | null>>;
+  onSelectCategory: (val: number | null) => void;
   selectedCategory: number | null;
 }) => {
   return (
@@ -99,7 +117,7 @@ const MakeSelector = ({
   selectedMake,
 }: {
   categoryId: number | null;
-  onSelectMake: Dispatch<SetStateAction<number | null>>;
+  onSelectMake: (val: number | null) => void;
   selectedMake: number | null;
 }) => {
   const [makes, setMakes] = useState<VehicleMake[]>([]);
@@ -168,7 +186,7 @@ const ModelSelector = ({
   selectedModel,
 }: {
   makeId: number | null;
-  onSelectModel: Dispatch<SetStateAction<number | null>>;
+  onSelectModel: (val: number | null) => void;
   selectedModel: number | null;
 }) => {
   const [models, setModels] = useState<VehicleModel[]>([]);

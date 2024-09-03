@@ -5,13 +5,15 @@ import Publication from "./publication";
 type PublicationListProps = {
   publications: PublicationType[];
   supabase: SupabaseClient;
+  edit: boolean;
 };
 
 export default function PublicationList({
   publications,
   supabase,
+  edit,
 }: PublicationListProps) {
   return publications.map((publication) => (
-    <Publication publication={publication} supabase={supabase} />
+    <Publication edit={edit} publication={publication} supabase={supabase} />
   ));
 }

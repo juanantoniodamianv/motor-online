@@ -50,12 +50,45 @@ export type Database = {
         }
         Relationships: []
       }
+      publication_files: {
+        Row: {
+          cover_image: boolean | null
+          created_at: string
+          file_url: string
+          id: number
+          publication: number
+        }
+        Insert: {
+          cover_image?: boolean | null
+          created_at?: string
+          file_url: string
+          id?: number
+          publication: number
+        }
+        Update: {
+          cover_image?: boolean | null
+          created_at?: string
+          file_url?: string
+          id?: number
+          publication?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publication_files_publication_fkey"
+            columns: ["publication"]
+            isOneToOne: false
+            referencedRelation: "publications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       publications: {
         Row: {
-          category: string
+          category: number
+          city: number | null
           color: string | null
           condition: string | null
-          created_at: string
+          created_at: string | null
           currency_type: string | null
           description: string
           doors: number | null
@@ -63,28 +96,30 @@ export type Database = {
           fuel_type: string | null
           id: number
           km: number | null
-          make: string
+          make: number
           market_discount: boolean | null
-          model: string
+          model: number
           neiborhood: string | null
           owner_phone: string | null
           previous_price: number | null
           price: number | null
+          province: number | null
           slug_url: string
           swap: boolean | null
           title: string
           transmision: string | null
           unique_owner: boolean | null
-          updated_at: string
+          updated_at: string | null
           user_id: string | null
-          version: string
+          version: number
           year: number | null
         }
         Insert: {
-          category: string
+          category: number
+          city?: number | null
           color?: string | null
           condition?: string | null
-          created_at?: string
+          created_at?: string | null
           currency_type?: string | null
           description: string
           doors?: number | null
@@ -92,28 +127,30 @@ export type Database = {
           fuel_type?: string | null
           id?: number
           km?: number | null
-          make: string
+          make: number
           market_discount?: boolean | null
-          model: string
+          model: number
           neiborhood?: string | null
           owner_phone?: string | null
           previous_price?: number | null
           price?: number | null
+          province?: number | null
           slug_url: string
           swap?: boolean | null
           title: string
           transmision?: string | null
           unique_owner?: boolean | null
-          updated_at?: string
+          updated_at?: string | null
           user_id?: string | null
-          version: string
+          version: number
           year?: number | null
         }
         Update: {
-          category?: string
+          category?: number
+          city?: number | null
           color?: string | null
           condition?: string | null
-          created_at?: string
+          created_at?: string | null
           currency_type?: string | null
           description?: string
           doors?: number | null
@@ -121,29 +158,72 @@ export type Database = {
           fuel_type?: string | null
           id?: number
           km?: number | null
-          make?: string
+          make?: number
           market_discount?: boolean | null
-          model?: string
+          model?: number
           neiborhood?: string | null
           owner_phone?: string | null
           previous_price?: number | null
           price?: number | null
+          province?: number | null
           slug_url?: string
           swap?: boolean | null
           title?: string
           transmision?: string | null
           unique_owner?: boolean | null
-          updated_at?: string
+          updated_at?: string | null
           user_id?: string | null
-          version?: string
+          version?: number
           year?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "publications_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "vehicle_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "publications_city_fkey"
+            columns: ["city"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "publications_make_fkey"
+            columns: ["make"]
+            isOneToOne: false
+            referencedRelation: "vehicle_makes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "publications_model_fkey"
+            columns: ["model"]
+            isOneToOne: false
+            referencedRelation: "vehicle_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "publications_province_fkey"
+            columns: ["province"]
+            isOneToOne: false
+            referencedRelation: "provinces"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "publications_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "publications_version_fkey"
+            columns: ["version"]
+            isOneToOne: false
+            referencedRelation: "vehicle_versions"
             referencedColumns: ["id"]
           },
         ]
