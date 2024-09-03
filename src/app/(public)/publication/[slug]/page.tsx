@@ -16,18 +16,17 @@ export default async function Publication({
       "*, vehicle_categories (name), vehicle_makes (name), vehicle_models (name), vehicle_versions (name)"
     )
     .eq("slug_url", slug)
-    .limit(1);
+    .limit(1)
+    .single();
 
   if (!data) {
     // TODO: handle error
     return <>Error</>;
   }
 
-  // TODO: retornar un solo registro en lugar de seleccionar la posición 0
-  const vehicle = data[0];
   const limit = 10;
-  const files = await getFiles(supabase, vehicle.id, limit);
-  const fileUrls = await getPublicUrls(supabase, files);
+  const files = await getFiles(data.id, limit);
+  const fileUrls = await getPublicUrls(files);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -36,28 +35,26 @@ export default async function Publication({
 
         {/* Vehicle Details */}
         <div className="space-y-6">
-          <h1 className="text-3xl font-bold">{vehicle.title}</h1>
-          <p className="text-2xl font-semibold text-blue-600">
-            ${vehicle.price}
-          </p>
+          <h1 className="text-3xl font-bold">{data.title}</h1>
+          <p className="text-2xl font-semibold text-blue-600">${data.price}</p>
           <div className="space-y-2">
             <p>
-              <strong>Marca</strong> {vehicle.vehicle_makes.name}
+              <strong>Marca</strong> {data.vehicle_makes?.name}
             </p>
             <p>
-              <strong>Modelo</strong> {vehicle.vehicle_models.name}
+              <strong>Modelo</strong> {data.vehicle_models?.name}
             </p>
             <p>
-              <strong>Version</strong> {vehicle.vehicle_versions.name}
+              <strong>Version</strong> {data.vehicle_versions?.name}
             </p>
             <p>
-              <strong>Año</strong> {vehicle.year}
+              <strong>Año</strong> {data.year}
             </p>
             <p>
-              <strong>Kilometraje</strong> {vehicle.km}
+              <strong>Kilometraje</strong> {data.km}
             </p>
           </div>
-          <p className="text-gray-600">{vehicle.description}</p>
+          <p className="text-gray-600">{data.description}</p>
         </div>
       </div>
     </div>

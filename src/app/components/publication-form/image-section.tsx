@@ -77,7 +77,7 @@ export default function ImageSection({
     // TODO: agregar un modal de confirmación indicando que la imagen (si existe en el storage: 'se esta editando la publicacion') se eliminará definitivamente, mensaje propuesto: "Este archivo se eliminará definitivamente de la publicación, no podrá deshacer esta acción."
     // If the image comes from a URL, try to delete it from storage
     if (filePublicUrl.startsWith("https://")) {
-      await deleteFileAndRow({ supabase, filePublicUrl });
+      await deleteFileAndRow(filePublicUrl);
     }
   };
 

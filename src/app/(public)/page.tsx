@@ -6,6 +6,7 @@ import PublicationList from "@/src/app/components/publication/list";
 export default async function Home() {
   const supabase = createClient();
 
+  // TODO: handle error
   const { data: publications, error: publicationsError } = await supabase
     .from("publications")
     .select(
@@ -22,10 +23,7 @@ export default async function Home() {
         </div>
 
         <div className="flex flex-wrap gap-4 mx-auto max-w-5xl">
-          {/* TODO: type error in publications due to Publication type and union with it relations (category, mark, model, etc.)  */}
-          {publications && (
-            <PublicationList publications={publications} supabase={supabase} />
-          )}
+          {publications && <PublicationList publications={publications} />}
         </div>
       </div>
     </section>
