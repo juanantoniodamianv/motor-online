@@ -1,3 +1,5 @@
+import { HiPencilAlt } from "react-icons/hi";
+
 import InfoSection from "@/src/app/components/publication-form/info-section";
 import LocationSection from "@/src/app/components/publication-form/location-section";
 import ImageSection from "@/src/app/components/publication-form/image-section";
@@ -10,19 +12,20 @@ import Breadcrumb, {
 import { createPublication } from "./actions";
 
 interface Props {
-  searchParams: { tab?: string };
+  searchParams: { tab?: string; slug?: string };
 }
 
 export default function NewPublication({ searchParams }: Props) {
   const activeTab: SectionTab =
     (searchParams.tab as SectionTab) || TabNames.info;
-  const publicationId = searchParams.tab;
+  const slug = searchParams.slug;
 
   return (
     <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-4">
+          <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-4">
+            <HiPencilAlt className="inline mr-2" />
             Nueva Publicación
           </h2>
 
@@ -52,7 +55,7 @@ export default function NewPublication({ searchParams }: Props) {
 
                 <DoneSection
                   isActiveTab={parseInt(activeTab.split("-")[0]) === 5}
-                  publicationId={publicationId}
+                  slug={slug}
                 />
               </form>
             </div>

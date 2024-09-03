@@ -1,4 +1,14 @@
+import { redirect } from "next/navigation";
+
 import { createClient } from "@/src/app/utils/supabase/server";
+import {
+  getPublication,
+  getUser,
+  handleFileUploads,
+  parseFormData,
+  slugifyAsUrl,
+  updatePublicationInDB,
+} from "@/src/app/(private)/dashboard/publication-actions";
 
 export async function getPublicationValues({
   publicationId,
@@ -82,7 +92,36 @@ export async function getPublicationValues({
   };
 }
 
-export async function updatePublication() {
+export async function updatePublication(
+  publicationId: number,
+  formData: FormData
+) {
   "use server";
-  throw "not implemented";
+
+  const user = await getUser();
+  const publication = await getPublication(publicationId);
+
+  // TODO: check for admin users too
+  if (user.id !== publication.user_id) {
+    throw new Error("Not allowed to update this publication");
+  }
+
+  const rawFormData = parseFormData(formData);
+
+  if (!rawFormData.title) {
+    throw new Error("Title is a required field");
+  }
+
+  // If title change then update slug
+  let slug = publication.slug_url;
+  if (rawFormData.title !== publication.title) {
+    slug = slugifyAsUrl(rawFormData.title);
+    rawFormData.slug_url = slug;
+  }
+
+  await updatePublicationInDB(publication.id, rawFormData);
+
+  await handleFileUploads(publicationId, formData);
+
+  redirect(`?tab=5-done&slug=${slug}`);
 }

@@ -1,20 +1,23 @@
 "use client";
-import { useState } from 'react';
-import { Label, TextInput } from 'flowbite-react';
+import { useState } from "react";
+import { Label, TextInput } from "flowbite-react";
 
 type YearSectionProps = {
   year?: number;
 };
 
+// TODO: Creo que este componente lo podemos exportar como uno generico para todos los campos que necesiten formatear numeros.
 export default function YearSection({ year }: YearSectionProps) {
-  const [formattedYear, setFormattedYear] = useState<string>(year?.toString() || '');
+  const [formattedYear, setFormattedYear] = useState<string>(
+    year?.toString() || ""
+  );
 
   const formatNumber = (value: string) => {
     // Elimina cualquier carácter que no sea un dígito
-    const cleanedValue = value.replace(/\D/g, '');
+    const cleanedValue = value.replace(/\D/g, "");
 
     // Aplica el formato de miles
-    return cleanedValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return cleanedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
