@@ -1,5 +1,5 @@
 import { createClient } from "@/src/app/utils/supabase/server";
-import LocalizationDetailSelector from "@/src/app/components/publication-form/localization-detail-selector";
+import LocalizationDetailSelector from "@/src/app/components/publication-form/sections/location/localization-detail-selector";
 import { LocalizationSectionDefaultValuesProps } from "./location-section";
 
 export default async function LocalizationSelector({

@@ -4,13 +4,13 @@ import Breadcrumb, {
   SectionTab,
   TabNames,
 } from "@/src/app/components/publication-form/breadcrumb";
-import ConfirmSection from "@/src/app/components/publication-form/confirm-section";
-import ImageSection from "@/src/app/components/publication-form/image-section";
-import InfoSection from "@/src/app/components/publication-form/info-section";
-import LocationSection from "@/src/app/components/publication-form/location-section";
+import ConfirmSection from "@/src/app/components/publication-form/sections/confirm/confirm-section";
+import ImageSection from "@/src/app/components/publication-form/sections/image/image-section";
+import InfoSection from "@/src/app/components/publication-form/sections/info/info-section";
+import LocationSection from "@/src/app/components/publication-form/sections/location/location-section";
+import DoneSection from "@/src/app/components/publication-form/sections/done/done-section";
 
 import { getPublicationValues, updatePublication } from "./actions";
-import DoneSection from "@/src/app/components/publication-form/done-section";
 
 interface Props {
   params: { id: string };

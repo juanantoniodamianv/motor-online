@@ -1,10 +1,10 @@
 import { HiPencilAlt } from "react-icons/hi";
 
-import InfoSection from "@/src/app/components/publication-form/info-section";
-import LocationSection from "@/src/app/components/publication-form/location-section";
-import ImageSection from "@/src/app/components/publication-form/image-section";
-import ConfirmSection from "@/src/app/components/publication-form/confirm-section";
-import DoneSection from "@/src/app/components/publication-form/done-section";
+import ConfirmSection from "@/src/app/components/publication-form/sections/confirm/confirm-section";
+import ImageSection from "@/src/app/components/publication-form/sections/image/image-section";
+import InfoSection from "@/src/app/components/publication-form/sections/info/info-section";
+import LocationSection from "@/src/app/components/publication-form/sections/location/location-section";
+import DoneSection from "@/src/app/components/publication-form/sections/done/done-section";
 import Breadcrumb, {
   SectionTab,
   TabNames,

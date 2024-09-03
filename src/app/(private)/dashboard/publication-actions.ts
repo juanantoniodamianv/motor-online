@@ -5,36 +5,37 @@ import { createClient } from "../../utils/supabase/server";
 
 type PublicationField = {
   field: keyof PublicationInsert;
+  type?: "text" | "number" | "checkbox";
   required: boolean;
 };
 
 export const publicationModel: PublicationField[] = [
-  { field: "category", required: true },
-  { field: "city", required: false },
-  { field: "color", required: false },
-  { field: "condition", required: false },
-  { field: "created_at", required: false },
-  { field: "currency_type", required: false },
-  { field: "description", required: true },
-  { field: "doors", required: false },
-  { field: "engine", required: false },
-  { field: "fuel_type", required: false },
-  { field: "km", required: false },
-  { field: "make", required: true },
-  { field: "market_discount", required: false },
-  { field: "model", required: true },
-  { field: "neiborhood", required: false },
-  { field: "owner_phone", required: false },
-  { field: "previous_price", required: false },
-  { field: "price", required: false },
-  { field: "province", required: false },
-  { field: "swap", required: false },
-  { field: "title", required: true },
-  { field: "transmision", required: false },
-  { field: "unique_owner", required: false },
-  { field: "updated_at", required: false },
-  { field: "version", required: true },
-  { field: "year", required: false },
+  { field: "category", type: "number", required: true },
+  { field: "city", type: "number", required: false },
+  { field: "color", type: "text", required: false },
+  { field: "condition", type: "text", required: false },
+  { field: "created_at", type: "text", required: false },
+  { field: "currency_type", type: "text", required: false },
+  { field: "description", type: "text", required: true },
+  { field: "doors", type: "number", required: false },
+  { field: "engine", type: "text", required: false },
+  { field: "fuel_type", type: "text", required: false },
+  { field: "km", type: "number", required: false },
+  { field: "make", type: "number", required: true },
+  { field: "market_discount", type: "checkbox", required: false },
+  { field: "model", type: "number", required: true },
+  { field: "neiborhood", type: "text", required: false },
+  { field: "owner_phone", type: "text", required: false },
+  { field: "previous_price", type: "number", required: false },
+  { field: "price", type: "number", required: false },
+  { field: "province", type: "number", required: false },
+  { field: "swap", type: "checkbox", required: false },
+  { field: "title", type: "text", required: true },
+  { field: "transmision", type: "text", required: false },
+  { field: "unique_owner", type: "checkbox", required: false },
+  { field: "updated_at", type: "text", required: false },
+  { field: "version", type: "number", required: true },
+  { field: "year", type: "number", required: false },
 ];
 
 const generateRandomString = (length = 6) => {
@@ -82,17 +83,25 @@ export const parseFormData = (
 ): Partial<PublicationInsert> => {
   const rawFormData: Partial<PublicationInsert> = {};
 
-  for (const { field, required } of publicationModel) {
+  for (const { field, required, type } of publicationModel) {
     const value = formData.get(field as string);
 
-    if (required && value === null) {
+    if (required && (value === null || value === "")) {
       throw new Error(`${field} is a required field`);
-    } else if (!required && value === "") {
-      continue;
     }
 
     // TODO: check types
-    rawFormData[field] = value;
+    if (value !== null) {
+      if (type === "number") {
+        const sanitizedValue = sanitizeValue(value.toString());
+        rawFormData[field] =
+          sanitizedValue !== "" ? Number(sanitizedValue) : null;
+      } else if (type === "checkbox") {
+        rawFormData[field] = value.toString().toLowerCase() === "on";
+      } else {
+        rawFormData[field] = value.toString();
+      }
+    }
   }
 
   return rawFormData;
@@ -119,6 +128,7 @@ export const createPublicationInDB = async (
   rawFormData: Partial<PublicationInsert>
 ) => {
   const supabase = createClient();
+  // TODO: check types
   const { data, error } = await supabase
     .from("publications")
     .insert(rawFormData)
@@ -147,12 +157,7 @@ export const handleFileUploads = async (
   if (fileArray.length > 0) {
     const bucket = "publication_files";
     const folder = publicationId.toString();
-    const uploadedFiles = await uploadFiles(
-      supabase,
-      bucket,
-      folder,
-      fileArray
-    );
+    const uploadedFiles = await uploadFiles(bucket, folder, fileArray);
 
     if (uploadedFiles) {
       for (const uploadedFile of uploadedFiles) {
@@ -163,4 +168,8 @@ export const handleFileUploads = async (
       }
     }
   }
+};
+
+const sanitizeValue = (value: string) => {
+  return value.replace(/\D/g, ""); // Remove all non-numeric characters
 };
