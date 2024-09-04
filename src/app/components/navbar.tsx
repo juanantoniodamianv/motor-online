@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import Image from "next/image";
 import { HiMenuAlt1, HiX } from "react-icons/hi";
 import { DarkThemeToggle, Navbar as FlowbiteNavbar } from "flowbite-react";

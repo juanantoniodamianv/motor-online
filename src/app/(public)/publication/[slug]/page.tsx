@@ -1,4 +1,5 @@
 import Carousel from "@/src/app/components/publication/carousel";
+import PublicationList from "@/src/app/components/publication/list";
 import { createClient } from "@/src/app/utils/supabase/client";
 import { getFiles, getPublicUrls } from "@/src/app/utils/supabase/storage";
 
@@ -28,6 +29,13 @@ export default async function Publication({
   const files = await getFiles(data.id, limit);
   const fileUrls = await getPublicUrls(files);
 
+  const { data: publications, error: publicationsError } = await supabase
+    .from("publications")
+    .select(
+      "*, vehicle_categories (name), vehicle_makes (name), vehicle_models (name), vehicle_versions (name)"
+    )
+    .limit(10);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-8">
@@ -55,6 +63,16 @@ export default async function Publication({
             </p>
           </div>
           <p className="text-gray-600">{data.description}</p>
+        </div>
+      </div>
+
+      <div className="my-4">
+        <h5 className="text-md font-semibold text-gray-900 dark:text-gray-900 sm:text-1xl mb-4">
+          Otras publicaciones que te podrían interesar
+        </h5>
+
+        <div className="flex flex-wrap gap-4 mx-auto">
+          {publications && <PublicationList publications={publications} />}
         </div>
       </div>
     </div>
