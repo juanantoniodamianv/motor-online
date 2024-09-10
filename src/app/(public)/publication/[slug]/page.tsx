@@ -1,3 +1,5 @@
+import { Textarea } from "flowbite-react";
+
 import Carousel from "@/src/app/components/publication/carousel";
 import PublicationList from "@/src/app/components/publication/list";
 import { createClient } from "@/src/app/utils/supabase/client";
@@ -37,44 +39,65 @@ export default async function Publication({
     .limit(10);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <section className="mx-auto px-4 bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="grid md:grid-cols-2 gap-8">
         <Carousel fileUrls={fileUrls} />
 
         {/* Vehicle Details */}
         <div className="space-y-6">
-          <h1 className="text-3xl font-bold">{data.title}</h1>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-4">
+            {data.title}
+          </h1>
           <p className="text-2xl font-semibold text-blue-600">${data.price}</p>
           <div className="space-y-2">
-            <p>
-              <strong>Marca</strong> {data.vehicle_makes?.name}
+            <p className="text-gray-900 dark:text-white">
+              <strong>Marca:</strong> {data.vehicle_makes?.name}
             </p>
-            <p>
-              <strong>Modelo</strong> {data.vehicle_models?.name}
+            <p className="text-gray-900 dark:text-white">
+              <strong>Modelo:</strong> {data.vehicle_models?.name}
             </p>
-            <p>
-              <strong>Version</strong> {data.vehicle_versions?.name}
+            <p className="text-gray-900 dark:text-white">
+              <strong>Version:</strong> {data.vehicle_versions?.name}
             </p>
-            <p>
-              <strong>Año</strong> {data.year}
+            <p className="text-gray-900 dark:text-white">
+              <strong>Año:</strong> {data.year}
             </p>
-            <p>
-              <strong>Kilometraje</strong> {data.km}
+            <p className="text-gray-900 dark:text-white">
+              <strong>Kilometraje:</strong> {data.km}
             </p>
           </div>
-          <p className="text-gray-600">{data.description}</p>
+          <p className="text-gray-900 dark:text-white">{data.description}</p>
+
+          <form
+            action=""
+            className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8"
+          >
+            <h5 className="text-md font-semibold text-gray-900 dark:text-white sm:text-1xl mb-4">
+              Contacta al anunciante
+            </h5>
+            <div className="mb-6 mt-6 grid grid-cols-1">
+              <div className="col-span-2 sm:col-span-1">
+                <Textarea
+                  id="message"
+                  name="message"
+                  defaultValue={"Hola. ¿Sigue estando disponible?"}
+                  required
+                />
+              </div>
+            </div>
+          </form>
         </div>
       </div>
 
       <div className="my-4">
-        <h5 className="text-md font-semibold text-gray-900 dark:text-gray-900 sm:text-1xl mb-4">
-          Otras publicaciones que te podrían interesar
+        <h5 className="text-md font-semibold text-gray-900 dark:text-white sm:text-1xl mb-4">
+          Otras opciones que te podrían interesar
         </h5>
 
         <div className="flex flex-wrap gap-4 mx-auto">
           {publications && <PublicationList publications={publications} />}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

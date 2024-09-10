@@ -1,0 +1,3 @@
+.peer:not(:checked) ~ .peer-checked {
+  display: none;
+}

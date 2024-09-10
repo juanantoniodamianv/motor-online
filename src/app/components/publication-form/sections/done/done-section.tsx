@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { type SectionProps } from "./types";
+import { type SectionProps } from "@/src/app/components/publication-form/types";
 
 type DoneSectionProps = SectionProps & {
   slug?: string;
