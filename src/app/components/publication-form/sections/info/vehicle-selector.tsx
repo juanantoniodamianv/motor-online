@@ -6,6 +6,7 @@ type VehicleSelectorProps = {
   make?: number;
   model?: number;
   version?: number;
+  showVersionSelector?: boolean;
 };
 
 export default async function VehicleSelector({
@@ -13,6 +14,7 @@ export default async function VehicleSelector({
   make,
   model,
   version,
+  showVersionSelector = true,
 }: VehicleSelectorProps) {
   const supabase = createClient();
   const { data: vehicleCategories, error } = await supabase
@@ -34,6 +36,7 @@ export default async function VehicleSelector({
     <VehicleDetailSelector
       vehicleCategories={vehicleCategories}
       existentSelection={existentSelection}
+      showVersionSelector={showVersionSelector}
     />
   );
 }

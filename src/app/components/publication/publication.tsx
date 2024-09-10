@@ -46,6 +46,7 @@ export default async function Publication({
             {publication.vehicle_makes?.name} ·{" "}
             {publication.vehicle_models?.name}
           </p>
+          <p className="mt-1 text-sm text-gray-500">{publication.year}</p>
         </div>
         <p className="text-sm font-medium dark:text-white text-black">
           ${publication.price}

@@ -15,6 +15,7 @@ const supabase = createClient();
 export default function VehicleDetailSelector({
   vehicleCategories,
   existentSelection,
+  showVersionSelector,
 }: {
   vehicleCategories: VehicleCategory[];
   existentSelection: {
@@ -23,6 +24,7 @@ export default function VehicleDetailSelector({
     model?: number;
     version?: number;
   };
+  showVersionSelector?: boolean;
 }) {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(
     existentSelection?.category || null
@@ -72,11 +74,14 @@ export default function VehicleDetailSelector({
         onSelectModel={(val: number | null) => handleSelectModel(val)}
         selectedModel={selectedModel}
       />
-      <VersionSelector
-        modelId={selectedModel}
-        onSelectVersion={setSelectedVersion}
-        selectedVersion={selectedVersion}
-      />
+
+      {showVersionSelector && (
+        <VersionSelector
+          modelId={selectedModel}
+          onSelectVersion={setSelectedVersion}
+          selectedVersion={selectedVersion}
+        />
+      )}
     </>
   );
 }
