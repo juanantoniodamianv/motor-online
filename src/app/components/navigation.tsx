@@ -4,8 +4,10 @@ type NavigationProps = {
   hrefCancel?: string;
   hrefLeftOption?: string;
   labelLeftOption?: string;
+  leftOptionDisabled?: boolean;
   hrefRightOption?: string;
   labelRightOption?: string;
+  rightOptionDisabled?: boolean;
   submit?: boolean;
 };
 
@@ -13,8 +15,10 @@ export default function Navigation({
   hrefCancel,
   hrefLeftOption,
   labelLeftOption,
+  leftOptionDisabled,
   hrefRightOption,
   labelRightOption,
+  rightOptionDisabled,
   submit,
 }: NavigationProps) {
   return (
@@ -32,7 +36,7 @@ export default function Navigation({
       </div>
 
       <div className="flex space-x-4">
-        {hrefLeftOption && (
+        {hrefLeftOption && !leftOptionDisabled && (
           <Link
             href={hrefLeftOption}
             className="text-gray-700 bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
@@ -42,7 +46,7 @@ export default function Navigation({
           </Link>
         )}
 
-        {(submit && (
+        {(!rightOptionDisabled && submit && (
           <button
             type="submit"
             className="text-white bg-green-800 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-900 dark:hover:bg-green-600 dark:focus:ring-green-800"
@@ -50,7 +54,7 @@ export default function Navigation({
             {labelRightOption}
           </button>
         )) ||
-          (hrefRightOption && (
+          (!rightOptionDisabled && hrefRightOption && (
             <Link
               href={hrefRightOption}
               className="text-white bg-green-800 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-900 dark:hover:bg-green-600 dark:focus:ring-green-800"
