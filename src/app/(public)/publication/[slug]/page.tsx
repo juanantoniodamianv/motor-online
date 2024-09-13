@@ -1,9 +1,8 @@
-import { Textarea } from "flowbite-react";
-
 import Carousel from "@/src/app/components/publication/carousel";
 import PublicationList from "@/src/app/components/publication/list";
 import { createClient } from "@/src/app/utils/supabase/client";
 import { getFiles, getPublicUrls } from "@/src/app/utils/supabase/storage";
+import DescriptionContactSwitcher from "@/src/app/components/publication/description-contact-switcher";
 
 export default async function Publication({
   params,
@@ -39,53 +38,22 @@ export default async function Publication({
     .limit(10);
 
   return (
-    <section className="mx-auto px-4 bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
-      <div className="grid md:grid-cols-2 gap-8">
-        <Carousel fileUrls={fileUrls} />
+    <main className="mx-auto px-4 bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <Carousel fileUrls={fileUrls} />
+        </div>
 
-        {/* Vehicle Details */}
-        <div className="space-y-6">
-          <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-4">
-            {data.title}
-          </h1>
-          <p className="text-2xl font-semibold text-blue-600">${data.price}</p>
-          <div className="space-y-2">
-            <p className="text-gray-900 dark:text-white">
-              <strong>Marca:</strong> {data.vehicle_makes?.name}
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>Modelo:</strong> {data.vehicle_models?.name}
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>Version:</strong> {data.vehicle_versions?.name}
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>Año:</strong> {data.year}
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>Kilometraje:</strong> {data.km}
-            </p>
-          </div>
-          <p className="text-gray-900 dark:text-white">{data.description}</p>
-
-          <form
-            action=""
-            className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8"
-          >
-            <h5 className="text-md font-semibold text-gray-900 dark:text-white sm:text-1xl mb-4">
-              Contacta al anunciante
-            </h5>
-            <div className="mb-6 mt-6 grid grid-cols-1">
-              <div className="col-span-2 sm:col-span-1">
-                <Textarea
-                  id="message"
-                  name="message"
-                  defaultValue={"Hola. ¿Sigue estando disponible?"}
-                  required
-                />
-              </div>
-            </div>
-          </form>
+        <div>
+          <Header title={data.title} price={data.price} />
+          <Detail
+            make={data.vehicle_makes?.name}
+            model={data.vehicle_models?.name}
+            version={data.vehicle_versions?.name}
+            year={data.year}
+            km={data.km}
+          />
+          <DescriptionContactSwitcher description={data.description} />
         </div>
       </div>
 
@@ -98,6 +66,68 @@ export default async function Publication({
           {publications && <PublicationList publications={publications} />}
         </div>
       </div>
-    </section>
+    </main>
+  );
+}
+
+function Header({ title, price }: { title: string; price: number | null }) {
+  return (
+    <div>
+      <h2 className="text-3xl text-gray-900 dark:text-white font-bold mb-4">
+        {title}
+      </h2>
+      <p className="text-2xl text-blue-400 mb-4">${price}</p>
+    </div>
+  );
+}
+
+function Detail({
+  make,
+  model,
+  version,
+  year,
+  km,
+}: {
+  make?: string;
+  model?: string | null;
+  version?: string;
+  year: number | null;
+  km: number | null;
+}) {
+  return (
+    <div className="bg-white dark:border-gray-700 dark:bg-gray-800 rounded-lg p-4 mb-4">
+      <ul className="space-y-2">
+        <li>
+          <span className="font-semibold text-gray-900 dark:text-white">
+            Marca:
+          </span>{" "}
+          <span className="text-gray-900 dark:text-white">{make}</span>
+        </li>
+        <li>
+          <span className="font-semibold text-gray-900 dark:text-white">
+            Modelo:
+          </span>{" "}
+          <span className="text-gray-900 dark:text-white">{model}</span>
+        </li>
+        <li>
+          <span className="font-semibold text-gray-900 dark:text-white">
+            Version:
+          </span>{" "}
+          <span className="text-gray-900 dark:text-white">{version}</span>
+        </li>
+        <li>
+          <span className="font-semibold text-gray-900 dark:text-white">
+            Año:
+          </span>{" "}
+          <span className="text-gray-900 dark:text-white">{year}</span>
+        </li>
+        <li>
+          <span className="font-semibold text-gray-900 dark:text-white">
+            Kilómetros:
+          </span>{" "}
+          <span className="text-gray-900 dark:text-white">{km}</span>
+        </li>
+      </ul>
+    </div>
   );
 }
