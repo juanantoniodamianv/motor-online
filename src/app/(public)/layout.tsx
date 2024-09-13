@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import "../globals.css";
-import { createClient } from "../utils/supabase/server";
+
+import { createClient } from "@/src/app/utils/supabase/server";
 import { SidebarProvider } from "@/src/context/sidebar-context";
-import { PublicLayoutContent } from "../components/public-layout/layout-content";
+import { PublicLayoutContent } from "@/src/app/components/public-layout/layout-content";
+
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "Motor Online",

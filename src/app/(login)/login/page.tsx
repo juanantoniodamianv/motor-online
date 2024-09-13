@@ -1,12 +1,13 @@
 "use client";
-import { signup, signin, signInWithProvider } from "./actions";
 import { useState } from "react";
+
+import { signup, signin, signInWithProvider } from "./actions";
 
 export default function LoginPage() {
   const [newUser, setNewUser] = useState(true);
 
   return (
-    <div className="flex items-center justify-center min-h-screen min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen min-h-screen flex items-center justify-center bg-gray-900">
       <div className="w-full max-w-sm items-center bg-white p-8 rounded-lg shadow-md space-y-4">
         <form className="mt-4">
           <div className="flex justify-center mt-4">
@@ -73,7 +74,7 @@ export default function LoginPage() {
             <div className="md:flex md:items-center mb-4">
               <div className="md:w-1/3">
                 <label
-                  className="block text-green-700 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  className="block text-green-700"
                   htmlFor="inline-full-name"
                 >
                   Email
