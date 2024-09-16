@@ -30,7 +30,7 @@ export default function NewPublication({ searchParams }: Props) {
           </h2>
 
           <div className="grid grid-rows-1 grid-cols-1">
-            <Breadcrumb activeTab={activeTab} />
+            <Breadcrumb activeTab={activeTab} isClickable={false} />
 
             <div className="flex justify-center min-h-10 mt-6 w-full">
               <form

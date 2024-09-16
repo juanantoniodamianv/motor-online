@@ -35,9 +35,13 @@ export type SectionTab =
 
 type BreadcrumbProps = {
   activeTab: SectionTab;
+  isClickable: boolean;
 };
 
-export default function Breadcrumb({ activeTab }: BreadcrumbProps) {
+export default function Breadcrumb({
+  activeTab,
+  isClickable,
+}: BreadcrumbProps) {
   const sections: Section[] = [
     {
       key: TabNames.info,
@@ -88,7 +92,18 @@ export default function Breadcrumb({ activeTab }: BreadcrumbProps) {
               "text-blue-600 dark:text-blue-500 after:border-blue-100 dark:after:border-blue-800"
           )}
         >
-          <Link href={section.href} title={section.title}>
+          {isClickable ? (
+            <Link href={section.href} title={section.title}>
+              <span
+                className={twMerge(
+                  "flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0",
+                  section.active && "dark:bg-blue-800 "
+                )}
+              >
+                <section.icon />
+              </span>
+            </Link>
+          ) : (
             <span
               className={twMerge(
                 "flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0",
@@ -97,7 +112,7 @@ export default function Breadcrumb({ activeTab }: BreadcrumbProps) {
             >
               <section.icon />
             </span>
-          </Link>
+          )}
         </li>
       ))}
     </ol>
