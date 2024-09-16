@@ -1,10 +1,13 @@
+"use client";
+
 import { Label, Radio, Select, Textarea, TextInput } from "flowbite-react";
 
 import InputNumber from "@/src/app/components/form/input-number";
-
-import Navigation from "../../navigation";
+import Navigation from "@/src/app/components/navigation";
 import VehicleSelector from "@/src/app/components/publication-form/sections/info/vehicle-selector";
-import { type SectionProps } from "../../types";
+import { type SectionProps } from "@/src/app/components/publication-form/types";
+
+import { useValidation } from "../useValidation";
 
 type InfoSectionDefaultValuesProps = {
   title?: string;
@@ -28,8 +31,14 @@ export default function InfoSection({
   isActiveTab,
   infoSectionDefaultValues,
 }: InfoSectionProps) {
+  const { sectionRef, error, handleContinue } = useValidation();
+
   return (
-    <div id="info-section" className={isActiveTab ? "block" : "hidden"}>
+    <div
+      id="info-section"
+      className={isActiveTab ? "block" : "hidden"}
+      ref={sectionRef}
+    >
       <div className="mb-6 grid grid-cols-1">
         <div className="col-span-2 sm:col-span-1">
           <Label htmlFor="title">Título de la publicación (*)</Label>
@@ -68,11 +77,16 @@ export default function InfoSection({
         </div>
       </div>
 
+      {/* TODO: todos estos campos son requridos por ahora, luego se agregara un campo custom para los casos faltantes */}
       <VehicleSelector
         category={infoSectionDefaultValues?.category}
+        categoryRequired={true}
         make={infoSectionDefaultValues?.make}
+        makeRequired={true}
         model={infoSectionDefaultValues?.model}
+        modelRequired={true}
         version={infoSectionDefaultValues?.version}
+        versionRequired={true}
       />
 
       <div className="mb-6 grid grid-cols-1">
@@ -135,10 +149,13 @@ export default function InfoSection({
         </div>
       </div>
 
+      {error && <p className="text-red-600">{error}</p>}
+
       <Navigation
         hrefCancel="/dashboard"
-        hrefForward="?tab=2-location"
-        labelForward="Continuar"
+        hrefRightOption="?tab=2-location"
+        labelRightOption="Continuar"
+        onClickRightOption={handleContinue}
       />
     </div>
   );

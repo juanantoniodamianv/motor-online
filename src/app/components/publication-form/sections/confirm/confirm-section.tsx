@@ -1,10 +1,13 @@
+"use client";
+
 import { Checkbox, Label, Radio } from "flowbite-react";
 
 import InputNumber from "@/src/app/components/form/input-number";
-import Navigation from "@/src/app/components/publication-form/navigation";
+import Navigation from "@/src/app/components/navigation";
 import { type SectionProps } from "@/src/app/components/publication-form/types";
 
 import SwapSection from "./swap-section";
+import { useValidation } from "../useValidation";
 
 type ConfirmSectionDefaultValuesProps = {
   currency_type?: string;
@@ -24,8 +27,14 @@ export default function ConfirmSection({
   confirmSectionDefaultValues,
   labelForward,
 }: ConfirmSectionProps) {
+  const { sectionRef, error, handleContinue } = useValidation();
+
   return (
-    <div id="confirm-section" className={isActiveTab ? "block" : "hidden"}>
+    <div
+      id="confirm-section"
+      className={isActiveTab ? "block" : "hidden"}
+      ref={sectionRef}
+    >
       <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
@@ -63,6 +72,7 @@ export default function ConfirmSection({
             defaultValue={confirmSectionDefaultValues?.price}
             label="Precio / Valor"
             useThousandSeparator={true}
+            required={true}
           />
         </div>
       </div>
@@ -96,10 +106,10 @@ export default function ConfirmSection({
 
       <Navigation
         hrefCancel="/dashboard"
-        hrefBack="?tab=3-media"
-        labelBack="Atrás"
-        hrefForward="?tab=5-done"
-        labelForward={labelForward || "Crear publicación"}
+        hrefLeftOption="?tab=3-media"
+        labelLeftOption="Atrás"
+        hrefRightOption="?tab=5-done"
+        labelRightOption={labelForward || "Crear publicación"}
         submit={true}
       />
     </div>
