@@ -7,6 +7,7 @@ type InputNumberProps = {
   name: string;
   defaultValue?: number;
   useThousandSeparator: boolean;
+  required?: boolean;
 };
 
 export default function InputNumber({
@@ -14,6 +15,7 @@ export default function InputNumber({
   name,
   defaultValue,
   useThousandSeparator,
+  required,
 }: InputNumberProps) {
   const [inputValue, setInputValue] = useState<string>(
     defaultValue?.toString() || ""
@@ -40,6 +42,7 @@ export default function InputNumber({
         name={name}
         value={inputValue}
         onChange={handleInputChange}
+        required={required}
       />
     </>
   );

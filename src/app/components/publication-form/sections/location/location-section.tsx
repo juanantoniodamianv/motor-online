@@ -1,6 +1,6 @@
 import LocalizationSelector from "./localization-selector";
-import Navigation from "../../navigation";
-import { type SectionProps } from "../../types";
+import Navigation from "@/src/app/components/navigation";
+import { type SectionProps } from "@/src/app/components/publication-form/types";
 
 export type LocalizationSectionDefaultValuesProps = {
   province?: number;
@@ -23,10 +23,10 @@ export default function LocationSection({
 
       <Navigation
         hrefCancel="/dashboard"
-        hrefBack="?tab=1-info"
-        labelBack="Atrás"
-        hrefForward="?tab=3-media"
-        labelForward="Continuar"
+        hrefLeftOption="?tab=1-info"
+        labelLeftOption="Atrás"
+        hrefRightOption="?tab=3-media"
+        labelRightOption="Continuar"
       />
     </div>
   );

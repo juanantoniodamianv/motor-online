@@ -2,7 +2,7 @@
 import { useState, useCallback, ChangeEvent, useEffect, useRef } from "react";
 import { HiCloudUpload, HiX } from "react-icons/hi";
 
-import Navigation from "@/src/app/components/publication-form/navigation";
+import Navigation from "@/src/app/components/navigation";
 import { type SectionProps } from "@/src/app/components/publication-form/types";
 import { createClient } from "@/src/app/utils/supabase/client";
 import { deleteFileAndRow } from "@/src/app/utils/supabase/storage-client";
@@ -134,10 +134,10 @@ export default function ImageSection({
 
       <Navigation
         hrefCancel="/dashboard"
-        hrefBack="?tab=2-location"
-        labelBack="Atrás"
-        hrefForward="?tab=4-confirm"
-        labelForward="Continuar"
+        hrefLeftOption="?tab=2-location"
+        labelLeftOption="Atrás"
+        hrefRightOption="?tab=4-confirm"
+        labelRightOption="Continuar"
       />
     </div>
   );

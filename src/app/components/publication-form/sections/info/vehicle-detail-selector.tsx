@@ -14,10 +14,18 @@ const supabase = createClient();
 
 export default function VehicleDetailSelector({
   vehicleCategories,
+  categoryRequired = false,
+  makeRequired = false,
+  modelRequired = false,
+  versionRequired = false,
   existentSelection,
   showVersionSelector,
 }: {
-  vehicleCategories: VehicleCategory[];
+  vehicleCategories: VehicleCategory[] | null;
+  categoryRequired?: boolean;
+  makeRequired?: boolean;
+  modelRequired?: boolean;
+  versionRequired?: boolean;
   existentSelection: {
     category?: number;
     make?: number;
@@ -61,16 +69,19 @@ export default function VehicleDetailSelector({
     <>
       <CategorySelector
         categories={vehicleCategories}
+        required={categoryRequired}
         onSelectCategory={(val: number | null) => handleSelectCategory(val)}
         selectedCategory={selectedCategory}
       />
       <MakeSelector
         categoryId={selectedCategory}
+        required={makeRequired}
         onSelectMake={(val: number | null) => handleSelectMake(val)}
         selectedMake={selectedMake}
       />
       <ModelSelector
         makeId={selectedMake}
+        required={modelRequired}
         onSelectModel={(val: number | null) => handleSelectModel(val)}
         selectedModel={selectedModel}
       />
@@ -78,6 +89,7 @@ export default function VehicleDetailSelector({
       {showVersionSelector && (
         <VersionSelector
           modelId={selectedModel}
+          required={versionRequired}
           onSelectVersion={setSelectedVersion}
           selectedVersion={selectedVersion}
         />
@@ -88,10 +100,12 @@ export default function VehicleDetailSelector({
 
 const CategorySelector = ({
   categories,
+  required = false,
   onSelectCategory,
   selectedCategory,
 }: {
-  categories: VehicleCategory[];
+  categories: VehicleCategory[] | null;
+  required?: boolean;
   onSelectCategory: (val: number | null) => void;
   selectedCategory: number | null;
 }) => {
@@ -103,6 +117,7 @@ const CategorySelector = ({
         name="category"
         onChange={(e) => onSelectCategory(Number(e.target.value) || null)}
         value={selectedCategory?.toString() || ""}
+        required={required}
       >
         <option value="">Seleccione una categoría</option>
         {categories &&
@@ -118,10 +133,12 @@ const CategorySelector = ({
 
 const MakeSelector = ({
   categoryId,
+  required = false,
   onSelectMake,
   selectedMake,
 }: {
   categoryId: number | null;
+  required?: boolean;
   onSelectMake: (val: number | null) => void;
   selectedMake: number | null;
 }) => {
@@ -172,6 +189,7 @@ const MakeSelector = ({
         name="make"
         onChange={(e) => onSelectMake(Number(e.target.value) || null)}
         value={selectedMake?.toString() || ""}
+        required={required}
       >
         <option value="">Seleccione una marca</option>
         {makes &&
@@ -187,10 +205,12 @@ const MakeSelector = ({
 
 const ModelSelector = ({
   makeId,
+  required = false,
   onSelectModel,
   selectedModel,
 }: {
   makeId: number | null;
+  required?: boolean;
   onSelectModel: (val: number | null) => void;
   selectedModel: number | null;
 }) => {
@@ -224,6 +244,7 @@ const ModelSelector = ({
         name="model"
         onChange={(e) => onSelectModel(Number(e.target.value) || null)}
         value={selectedModel?.toString() || ""}
+        required={required}
       >
         <option value="">Seleccione un modelo</option>
         {models &&
@@ -239,10 +260,12 @@ const ModelSelector = ({
 
 const VersionSelector = ({
   modelId,
+  required = false,
   onSelectVersion,
   selectedVersion,
 }: {
   modelId: number | null;
+  required?: boolean;
   onSelectVersion: Dispatch<SetStateAction<number | null>>;
   selectedVersion: number | null;
 }) => {
@@ -276,6 +299,7 @@ const VersionSelector = ({
         name="version"
         onChange={(e) => onSelectVersion(Number(e.target.value) || null)}
         value={selectedVersion?.toString() || ""}
+        required={required}
       >
         <option value="">Seleccione una versión</option>
         {versions &&
