@@ -29,7 +29,8 @@ export const DashboardLayoutContent: FC<DashboardLayoutContentProps> =
 
     return (
       <>
-        <Navbar avatarUrl={avatarUrl} />
+        {/* This is a private layout, so we assume authenticated as true */}
+        <Navbar avatarUrl={avatarUrl} authenticated={true} />
         <div className="mt-16 flex items-start">
           <DashboardSidebar />
           <div

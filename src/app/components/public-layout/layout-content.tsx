@@ -17,13 +17,17 @@ export const PublicLayoutContent: FC<PublicLayoutContentProps> = function ({
   avatarUrl,
   authenticated,
 }) {
+  // Display sidebar and menu button for authenticated users only
   const { isCollapsed } = useSidebarContext();
   const [sidebarClass, setSidebarClass] = useState<string>(
-    "lg:ml-64" // Default value matching server-side
+    authenticated ? "lg:ml-64" : "" // Default value matching server-side only for authenticated users
   );
 
   // Adjust class based on collapse state after mount
   useEffect(() => {
+    // If not authenticated, don't adjust the class
+    if (!authenticated) return;
+
     if (isCollapsed) {
       setSidebarClass("lg:ml-[4.0rem]");
     } else {
@@ -33,9 +37,9 @@ export const PublicLayoutContent: FC<PublicLayoutContentProps> = function ({
 
   return (
     <>
-      <Navbar avatarUrl={avatarUrl} />
+      <Navbar avatarUrl={avatarUrl} authenticated={authenticated} />
       <div className="mt-16 flex items-start">
-        <PublicSidebar authenticated={authenticated} />
+        {authenticated && <PublicSidebar authenticated={authenticated} />}
         <div
           id="main-content"
           className={twMerge(

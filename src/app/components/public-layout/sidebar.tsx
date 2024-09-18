@@ -1,7 +1,6 @@
-import type { FC } from "react";
 import Link from "next/link";
 import { Sidebar } from "flowbite-react";
-import { HiHome, HiCollection } from "react-icons/hi";
+import { HiDotsHorizontal, HiPencilAlt } from "react-icons/hi";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
 
@@ -17,13 +16,20 @@ export default function PublicSidebar({
   const { isCollapsed } = useSidebarContext();
   const pathname = usePathname();
 
-  const links = [{ name: "Inicio", href: "/", icon: HiHome }];
+  const links: { name: string; href: string; icon: any; animate?: boolean }[] =
+    [];
 
   if (authenticated) {
     links.push({
-      name: "Mi Panel",
+      name: "Nueva Publicación",
+      href: "/dashboard/new-publication",
+      icon: HiPencilAlt,
+      animate: true,
+    });
+    links.push({
+      name: "Más Configuraciones",
       href: "/dashboard",
-      icon: HiCollection,
+      icon: HiDotsHorizontal,
     });
   }
 
@@ -43,7 +49,14 @@ export default function PublicSidebar({
               as={Link}
               href={l.href}
               prefetch={false}
-              icon={l.icon}
+              icon={() => (
+                <l.icon
+                  className={twMerge(
+                    "h-6 w-6", // Tamaño del ícono
+                    l.animate && "animate-color-change" // Aplicar animación si animate es true
+                  )}
+                />
+              )}
               className={twMerge(
                 "flex justify-start",
                 pathname === l.href &&
