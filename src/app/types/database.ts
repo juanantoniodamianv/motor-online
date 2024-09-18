@@ -35,6 +35,42 @@ export type Database = {
           },
         ]
       }
+      favorites: {
+        Row: {
+          created_at: string
+          id: number
+          publication: number
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          publication: number
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          publication?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_publication_fkey"
+            columns: ["publication"]
+            isOneToOne: false
+            referencedRelation: "publications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "favorites_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       provinces: {
         Row: {
           id: number
@@ -105,6 +141,7 @@ export type Database = {
           price: number | null
           province: number | null
           slug_url: string
+          status: string | null
           swap: boolean | null
           title: string
           transmision: string | null
@@ -136,6 +173,7 @@ export type Database = {
           price?: number | null
           province?: number | null
           slug_url: string
+          status?: string | null
           swap?: boolean | null
           title: string
           transmision?: string | null
@@ -167,6 +205,7 @@ export type Database = {
           price?: number | null
           province?: number | null
           slug_url?: string
+          status?: string | null
           swap?: boolean | null
           title?: string
           transmision?: string | null
