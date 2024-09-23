@@ -1,7 +1,6 @@
 import Carousel from "@/src/app/components/publication/carousel";
 import PublicationList from "@/src/app/components/publication/list";
 import { createClient } from "@/src/app/utils/supabase/client";
-import { getFiles, getPublicUrls } from "@/src/app/utils/supabase/storage";
 import DescriptionContactSwitcher from "@/src/app/components/publication/description-contact-switcher";
 
 export default async function Publication({
@@ -26,10 +25,6 @@ export default async function Publication({
     return <>Error</>;
   }
 
-  const limit = 10;
-  const files = await getFiles(data.id, limit);
-  const fileUrls = await getPublicUrls(files);
-
   const { data: publications, error: publicationsError } = await supabase
     .from("publications")
     .select(
@@ -41,7 +36,7 @@ export default async function Publication({
     <main className="mx-auto px-4 bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <Carousel fileUrls={fileUrls} />
+          <Carousel publicationId={data.id} />
         </div>
 
         <div>

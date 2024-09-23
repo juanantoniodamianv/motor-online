@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import ContactForm from "./contact-form";
+import { Button } from "../button";
 
 export default function DescriptionContactSwitcher({
   description,
@@ -11,12 +12,12 @@ export default function DescriptionContactSwitcher({
   return (
     <div>
       <div className="flex mb-4">
-        <button
-          className="text-white bg-green-800 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-900 dark:hover:bg-green-600 dark:focus:ring-green-800"
+        <Button
+          variant="primary"
           onClick={() => setShowDescription(!showDescription)}
         >
           {showDescription ? "Contacta al vendedor" : "Ver más características"}
-        </button>
+        </Button>
       </div>
       {showDescription ? (
         <Description description={description} />

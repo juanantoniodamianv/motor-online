@@ -1,21 +1,13 @@
 import Link from "next/link";
+import { Button, buttonStyles } from "./button";
 
 type NavigationButtonProps = {
   href?: string;
   label: string;
   disabled?: boolean;
   isSubmit?: boolean;
-  variant?: "cancel" | "default" | "submit";
+  variant?: "primary" | "secondary" | "danger" | "success" | "warning" | "link";
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
-};
-
-const buttonStyles = {
-  cancel:
-    "text-green-700 hover:text-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:text-green-400 dark:hover:text-green-500 dark:focus:ring-green-900",
-  default:
-    "text-gray-700 bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-gray-700",
-  submit:
-    "text-white bg-green-800 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-900 dark:hover:bg-green-600 dark:focus:ring-green-800",
 };
 
 const NavigationButton = ({
@@ -23,16 +15,16 @@ const NavigationButton = ({
   label,
   disabled,
   isSubmit,
-  variant = "default",
+  variant = "primary",
   onClick,
 }: NavigationButtonProps) => {
   if (disabled) return null;
 
   if (isSubmit) {
     return (
-      <button type="submit" className={buttonStyles[variant]}>
+      <Button type="submit" variant="success">
         {label}
-      </button>
+      </Button>
     );
   }
 
@@ -76,7 +68,11 @@ export default function Navigation({
   return (
     <div className="flex justify-between">
       <div className="flex space-x-4">
-        <NavigationButton href={hrefCancel} label="Cancelar" variant="cancel" />
+        <NavigationButton
+          href={hrefCancel}
+          label="Cancelar"
+          variant="secondary"
+        />
       </div>
 
       <div className="flex space-x-4">
@@ -90,7 +86,7 @@ export default function Navigation({
           label={labelRightOption || ""}
           disabled={rightOptionDisabled}
           isSubmit={submit}
-          variant="submit"
+          variant="primary"
           onClick={onClickRightOption}
         />
       </div>

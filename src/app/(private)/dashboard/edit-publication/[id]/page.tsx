@@ -71,7 +71,7 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
                 <ConfirmSection
                   isActiveTab={parseInt(activeTab.split("-")[0]) === 4}
                   confirmSectionDefaultValues={confirmSectionDefaultValues}
-                  labelForward="Guardar cambios"
+                  labelForward="Guardar"
                 />
 
                 <DoneSection

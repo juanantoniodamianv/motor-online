@@ -35,7 +35,7 @@ export default async function MyPublications() {
 
         <div className="flex flex-wrap gap-4 mx-auto max-w-5xl">
           {publications && (
-            <PublicationList edit={true} publications={publications} />
+            <PublicationList publications={publications} extended={true} />
           )}
         </div>
       </div>

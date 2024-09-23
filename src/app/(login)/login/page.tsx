@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 import { signup, signin, signInWithProvider } from "./actions";
+import { Button } from "../../components/button";
 
 export default function LoginPage() {
   const [newUser, setNewUser] = useState(true);
@@ -136,24 +137,17 @@ export default function LoginPage() {
             <div className="md:flex md:items-center mb-2">
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
-                <button
-                  className="bg-green-700 text-white w-full py-2 rounded hover:bg-white hover:text-green-700 border hover:border-green-700"
-                  formAction={signup}
-                >
+                <Button variant="success" formAction={signup}>
                   Registrarse
-                </button>
+                </Button>
               </div>
             </div>
             <div className="md:flex md:items-center">
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
-                <button
-                  className="bg-white text-green-700 w-full py-2 rounded hover:bg-green-700 hover:text-white border hover:border-green-700"
-                  onClick={() => setNewUser(false)}
-                  type="button"
-                >
+                <Button variant="link" onClick={() => setNewUser(false)}>
                   Ya tengo una cuenta
-                </button>
+                </Button>
               </div>
             </div>
           </form>
@@ -203,24 +197,21 @@ export default function LoginPage() {
             <div className="md:flex md:items-center mb-2">
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
-                <button
-                  className="bg-green-700 text-white w-full py-2 rounded hover:bg-white hover:text-green-700 border hover:border-green-700"
-                  formAction={signin}
-                >
+                <Button variant="success" formAction={signin}>
                   Iniciar Sesión
-                </button>
+                </Button>
               </div>
             </div>
             <div className="md:flex md:items-center">
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
-                <button
-                  className="bg-white text-green-700 w-full py-2 rounded hover:bg-green-700 hover:text-white border hover:border-green-700"
+                <Button
+                  variant="link"
                   onClick={() => setNewUser(true)}
                   type="button"
                 >
                   Aún no tengo cuenta
-                </button>
+                </Button>
               </div>
             </div>
           </form>

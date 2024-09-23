@@ -1,11 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import { Carousel as FlowbiteCarousel } from "flowbite-react";
 
+import { useStorage } from "./useStorage";
+
 type CarouselProps = {
-  fileUrls: string[];
+  publicationId: number;
 };
 
-export default function Carousel({ fileUrls }: CarouselProps) {
+export default function Carousel({ publicationId }: CarouselProps) {
+  const { fileUrls } = useStorage({
+    publicationId: publicationId,
+    limit: 10,
+  });
+
   return (
     <div className="relative w-full">
       <FlowbiteCarousel
