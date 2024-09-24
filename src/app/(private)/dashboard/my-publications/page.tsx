@@ -20,6 +20,10 @@ export default async function MyPublications() {
     .select(
       "*, vehicle_categories (name), vehicle_makes (name), vehicle_models (name), vehicle_versions (name)"
     )
+    .order("status", {
+      referencedTable:
+        "CASE WHEN status = 'active' THEN 1 WHEN status = 'paused' THEN 2 WHEN status = 'draft' THEN 3 WHEN status = 'sold' THEN 4 ELSE 5 END",
+    })
     .eq("user_id", userId);
 
   // TODO: handle publicationsError
@@ -29,7 +33,7 @@ export default async function MyPublications() {
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mx-auto max-w-5xl">
           <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-4">
-            <HiCollection className="inline mr-2 inline" /> Mis Publicaciones
+            <HiCollection className="inline" /> Mis Publicaciones
           </h2>
         </div>
 

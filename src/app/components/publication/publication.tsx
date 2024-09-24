@@ -17,15 +17,15 @@ export default function Publication({ publication }: PublicationProps) {
 
   return (
     <div className="group relative w-64" key={publication.id}>
-      <div className="aspect-video w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
+      <div className="relative w-full h-48">
         {/* TODO: mover Image a un componente, usar suspense o una imagen por defecto */}
         {fileUrls[0] && (
           <Image
             src={fileUrls[0]}
-            width={415}
-            height={224}
-            alt="Publication image"
-            className="object-cover object-center w-full h-full"
+            alt={`${publication.year} ${publication.make} ${publication.model}`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
           />
         )}
       </div>

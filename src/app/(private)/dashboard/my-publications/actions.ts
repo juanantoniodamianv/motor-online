@@ -1,11 +1,9 @@
 "use client";
 
+import { Status } from "@/src/app/types";
 import { createClient } from "@/src/app/utils/supabase/client";
 
-export async function updatePublicationStatus(
-  id: number,
-  status: "active" | "sold" | "draft" | "paused"
-) {
+export async function updatePublicationStatus(id: number, status: Status) {
   const supabase = createClient();
   const { error } = await supabase
     .from("publications")

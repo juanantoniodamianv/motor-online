@@ -41,3 +41,5 @@ export type PublicationEntity =
     vehicle_versions: { name: string | null } | null;
   };
 export type Publication = PublicationEntity;
+
+export type Status = "active" | "sold" | "draft" | "paused";
