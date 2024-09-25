@@ -8,13 +8,21 @@ interface HandleStatusButtonsProps {
   status: Status;
   handleStatus: (status: Status) => void;
   publicationId: string;
+  publicationSlug: string;
 }
 
 export default function handleStatusButtons({
   status,
   handleStatus,
   publicationId,
+  publicationSlug,
 }: HandleStatusButtonsProps) {
+  const PublicationDetailLink = () => (
+    <Dropdown.Item as="a" href={`/publication/${publicationSlug}`}>
+      Ver publicación
+    </Dropdown.Item>
+  );
+
   const EditLink = () => (
     <Dropdown.Item as="a" href={`/dashboard/edit-publication/${publicationId}`}>
       Modificar publicación
@@ -39,8 +47,8 @@ export default function handleStatusButtons({
         <Dropdown.Item onClick={() => handleStatus("draft")}>
           Marcar como borrador
         </Dropdown.Item>
-
         <EditLink />
+        <PublicationDetailLink />
       </Dropdown>
     </>
   );
@@ -63,8 +71,8 @@ export default function handleStatusButtons({
         <Dropdown.Item onClick={() => handleStatus("draft")}>
           Marcar como borrador
         </Dropdown.Item>
-
         <EditLink />
+        <PublicationDetailLink />
       </Dropdown>
     </>
   );
@@ -82,6 +90,7 @@ export default function handleStatusButtons({
         arrowIcon={false}
       >
         <EditLink />
+        <PublicationDetailLink />
       </Dropdown>
     </>
   );
@@ -102,6 +111,7 @@ export default function handleStatusButtons({
           Marcar como vendido
         </Dropdown.Item>
         <EditLink />
+        <PublicationDetailLink />
       </Dropdown>
     </>
   );

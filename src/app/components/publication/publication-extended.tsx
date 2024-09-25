@@ -68,6 +68,7 @@ export default function PublicationExtended({
                 status={status}
                 handleStatus={handleStatus}
                 publicationId={publication.id.toString()}
+                publicationSlug={publication.slug_url}
               />
             )}
           </div>
