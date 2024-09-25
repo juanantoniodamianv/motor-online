@@ -20,13 +20,8 @@ export default async function MyPublications() {
     .select(
       "*, vehicle_categories (name), vehicle_makes (name), vehicle_models (name), vehicle_versions (name)"
     )
-    .order("status", {
-      referencedTable:
-        "CASE WHEN status = 'active' THEN 1 WHEN status = 'paused' THEN 2 WHEN status = 'draft' THEN 3 WHEN status = 'sold' THEN 4 ELSE 5 END",
-    })
-    .eq("user_id", userId);
-
-  // TODO: handle publicationsError
+    .eq("user_id", userId)
+    .order("updated_at", { ascending: false });
 
   return (
     <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
