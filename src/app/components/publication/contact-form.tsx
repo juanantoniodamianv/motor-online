@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { createClient } from "@/src/app/utils/supabase/client";
 import { sendEmail } from "@/src/app/utils/send-email";
+import { Button, buttonStyles } from "../button";
 
 export default function ContactForm() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -39,17 +40,11 @@ export default function ContactForm() {
       <div className="bg-white dark:border-gray-700 dark:bg-gray-800 rounded-lg p-4 mb-4">
         <span className="text-gray-900 dark:text-white">
           Para contactar al vendedor, por favor
-          <Link
-            href="/login"
-            className="text-green-700 hover:text-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-2 py-2.5 dark:text-green-400 dark:hover:text-green-500 dark:focus:ring-green-900"
-          >
+          <Link href="/login" className={buttonStyles.link}>
             Inicia Sesión
           </Link>
           o
-          <Link
-            href="/login"
-            className="text-green-700 hover:text-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-2 py-2.5 dark:text-green-400 dark:hover:text-green-500 dark:focus:ring-green-900"
-          >
+          <Link href="/login" className={buttonStyles.link}>
             Regístrate
           </Link>
         </span>
@@ -131,12 +126,9 @@ export default function ContactForm() {
           />
         </div>
       </div>
-      <button
-        type="submit"
-        className="text-white bg-green-800 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-900 dark:hover:bg-green-600 dark:focus:ring-green-800"
-      >
+      <Button type="submit" variant="success">
         Enviar mensaje
-      </button>
+      </Button>
     </form>
   );
 }

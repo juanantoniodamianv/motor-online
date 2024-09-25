@@ -127,6 +127,10 @@ export default async function Home({ searchParams }: Props) {
     }
   }
 
+  // Only return "active" publications
+  query = query.eq("status", "active");
+  countQuery = countQuery.eq("status", "active");
+
   // Fetch publications (including parameters and pagination) and total count of publications for pagination buttons (prev/next page)
   const [
     { data: publications, error: publicationsError },

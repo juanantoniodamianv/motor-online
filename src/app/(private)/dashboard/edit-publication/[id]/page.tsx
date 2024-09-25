@@ -40,7 +40,7 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mx-auto max-w-5xl">
           <h2 className="flex items-center text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-4">
-            <HiPencilAlt className="inline mr-2 inline" /> Editar Publicación
+            <HiPencilAlt className="inline mr-2" /> Editar Publicación
           </h2>
 
           <div className="grid grid-rows-1 grid-cols-1">
@@ -71,7 +71,7 @@ export default async function PublicationEdit({ params, searchParams }: Props) {
                 <ConfirmSection
                   isActiveTab={parseInt(activeTab.split("-")[0]) === 4}
                   confirmSectionDefaultValues={confirmSectionDefaultValues}
-                  labelForward="Guardar cambios"
+                  labelForward="Guardar"
                 />
 
                 <DoneSection

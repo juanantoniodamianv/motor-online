@@ -124,7 +124,7 @@ export default async function MyProfile() {
                       className="cursor-not-allowed text-white bg-green-800 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-900 dark:hover:bg-green-600 dark:focus:ring-green-800"
                       disabled
                     >
-                      Guardar cambios
+                      Guardar
                     </button>
                   </div>
                 </div>

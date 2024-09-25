@@ -1,16 +1,21 @@
 import type { Publication as PublicationType } from "../../types";
 import Publication from "./publication";
+import PublicationExtended from "./publication-extended";
 
 type PublicationListProps = {
   publications: PublicationType[];
-  edit?: boolean;
+  extended?: boolean;
 };
 
 export default function PublicationList({
   publications,
-  edit = false,
+  extended = false,
 }: PublicationListProps) {
-  return publications.map((publication) => (
-    <Publication edit={edit} publication={publication} />
-  ));
+  return publications.map((publication) =>
+    extended ? (
+      <PublicationExtended publication={publication} />
+    ) : (
+      <Publication publication={publication} />
+    )
+  );
 }
