@@ -1,7 +1,9 @@
 import slugify from "slugify";
+
 import { PublicationInsert } from "@/src/app/types";
 import { uploadFiles } from "../../utils/supabase/storage";
 import { createClient } from "../../utils/supabase/server";
+import { sanitizeValue } from "../../utils/numbers";
 
 type PublicationField = {
   field: keyof PublicationInsert;
@@ -168,8 +170,4 @@ export const handleFileUploads = async (
       }
     }
   }
-};
-
-const sanitizeValue = (value: string) => {
-  return value.replace(/\D/g, ""); // Remove all non-numeric characters
 };

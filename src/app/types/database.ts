@@ -267,6 +267,84 @@ export type Database = {
           },
         ]
       }
+      subscription_plans: {
+        Row: {
+          created_at: string
+          duration_days: number | null
+          id: number
+          max_publications: number | null
+          name: string
+          price: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          duration_days?: number | null
+          id?: number
+          max_publications?: number | null
+          name: string
+          price?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          duration_days?: number | null
+          id?: number
+          max_publications?: number | null
+          name?: string
+          price?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_subscriptions: {
+        Row: {
+          created_at: string
+          end_date: string | null
+          id: number
+          is_active: boolean | null
+          plan_id: number | null
+          start_date: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          end_date?: string | null
+          id?: number
+          is_active?: boolean | null
+          plan_id?: number | null
+          start_date?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          end_date?: string | null
+          id?: number
+          is_active?: boolean | null
+          plan_id?: number | null
+          start_date?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           avatar_url: string | null
@@ -274,6 +352,7 @@ export type Database = {
           email: string
           id: string
           name: string | null
+          role: string | null
           username: string | null
         }
         Insert: {
@@ -282,6 +361,7 @@ export type Database = {
           email: string
           id?: string
           name?: string | null
+          role?: string | null
           username?: string | null
         }
         Update: {
@@ -290,6 +370,7 @@ export type Database = {
           email?: string
           id?: string
           name?: string | null
+          role?: string | null
           username?: string | null
         }
         Relationships: [
