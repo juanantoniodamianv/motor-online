@@ -43,3 +43,11 @@ export type PublicationEntity =
 export type Publication = PublicationEntity;
 
 export type Status = "active" | "sold" | "draft" | "paused";
+
+export type SubscriptionPlanEntityInsert =
+  Database["public"]["Tables"]["subscription_plans"]["Insert"];
+export type SubscriptionPlanInsert = SubscriptionPlanEntityInsert;
+
+export type SubscriptionPlanEntity =
+  Database["public"]["Tables"]["subscription_plans"]["Row"];
+export type SubscriptionPlan = SubscriptionPlanEntity;
