@@ -31,19 +31,24 @@ export default function SubscriptionPlanList() {
 
   const columns = ["Nombre", "Precio", "Cantidad de publicaciones", "Duración"];
 
-  const rows = subscriptionPlans?.map((plan) => {
+  if (!subscriptionPlans) {
+    return;
+  }
+
+  const rows = subscriptionPlans.map((plan) => {
     return [
       { field: "Nombre", value: plan.name },
-      { field: "Precio", value: plan.price?.toString() },
+      { field: "Precio", value: plan.price ? plan.price.toString() : "N/A" },
       {
         field: "Cantidad de publicaciones",
-        value: plan.max_publications?.toString(),
+        value: plan.max_publications ? plan.max_publications.toString() : "N/A",
       },
-      { field: "Duración", value: plan.duration_days?.toString() },
+      {
+        field: "Duración",
+        value: plan.duration_days ? plan.duration_days?.toString() : "N/A",
+      },
     ];
   });
-
-  if (rows === undefined) return <></>;
 
   return (
     <div className="overflow-x-auto">
