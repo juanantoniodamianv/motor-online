@@ -9,7 +9,7 @@ import { createSubscriptionPlan } from "./action";
 import { Button, buttonStyles } from "@/src/app/components/button";
 import SubscriptionPlanList from "@/src/app/components/subscription-plans/subscription-plan-list";
 
-export default async function Configurations() {
+export default async function SubscriptionPlan() {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.getUser();

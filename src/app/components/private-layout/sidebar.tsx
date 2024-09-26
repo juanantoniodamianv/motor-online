@@ -8,7 +8,7 @@ import {
   HiHeart,
   HiUser,
   HiUserGroup,
-  HiCog,
+  HiBriefcase,
   HiMail,
   HiOutlineAdjustments,
 } from "react-icons/hi";
@@ -40,10 +40,14 @@ const links = [
   { name: "Mensajes", href: "/dashboard/messages", icon: HiMail },
   {
     name: "Usuarios",
-    href: "/dashboard/Users",
+    href: "/dashboard/users",
     icon: HiUserGroup,
   },
-  { name: "Configuraciones", href: "/dashboard/configurations", icon: HiCog },
+  {
+    name: "Planes de Suscripción",
+    href: "/dashboard/subscription-plans",
+    icon: HiBriefcase,
+  },
 ];
 
 const DashboardSidebar: FC = function () {
