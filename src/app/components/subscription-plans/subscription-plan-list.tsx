@@ -45,5 +45,9 @@ export default function SubscriptionPlanList() {
 
   if (rows === undefined) return <></>;
 
-  return <CustomTable columns={columns} rows={rows} />;
+  return (
+    <div className="overflow-x-auto">
+      <CustomTable columns={columns} rows={rows} />
+    </div>
+  );
 }

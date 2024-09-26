@@ -27,26 +27,19 @@ export default async function Configurations() {
             Planes de suscripción
           </h2>
 
-          <div className="grid grid-rows-1 grid-cols-1">
-            <div className="flex justify-center min-h-10 mt-6 w-full">
+          <div className="w-full">
+            <div className="w-full">
               <form
                 action={createSubscriptionPlan}
-                className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8"
+                className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6"
               >
-                <div className="mb-6 mt-6 grid grid-cols-1">
-                  <div className="col-span-2 sm:col-span-1">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="col-span-1">
                     <Label htmlFor="name">Nombre del plan</Label>
-                    <TextInput
-                      id="name"
-                      name="name"
-                      // defaultValue={name}
-                      required
-                    />
+                    <TextInput id="name" name="name" required />
                   </div>
-                </div>
 
-                <div className="mb-6 mt-6 grid grid-cols-1">
-                  <div className="col-span-2 sm:col-span-1">
+                  <div className="col-span-1">
                     <InputNumber
                       name="price"
                       label="Precio"
@@ -56,41 +49,39 @@ export default async function Configurations() {
                   </div>
                 </div>
 
-                <div className="mb-6 mt-6 grid grid-cols-1">
-                  <div className="col-span-2 sm:col-span-1">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-4">
+                  <div className="col-span-1">
                     <InputNumber
                       name="max_publications"
                       label="Cantidad de publicaciones"
                       useThousandSeparator={false}
                       required
                     />
+                    <p
+                      id="helper-text-explanation"
+                      className="mt-2 text-sm text-gray-500 dark:text-gray-400"
+                    >
+                      Cantidad de publicaciones activas
+                    </p>
                   </div>
-                  <p
-                    id="helper-text-explanation"
-                    className="mt-2 text-sm text-gray-500 dark:text-gray-400"
-                  >
-                    Cantidad de publicaciones activas
-                  </p>
-                </div>
 
-                <div className="mb-6 mt-6 grid grid-cols-1">
-                  <div className="col-span-2 sm:col-span-1">
+                  <div className="col-span-1">
                     <InputNumber
                       name="duration_days"
                       label="Duración (en días)"
                       useThousandSeparator={false}
                       required
                     />
+                    <p
+                      id="helper-text-explanation"
+                      className="mt-2 text-sm text-gray-500 dark:text-gray-400"
+                    >
+                      Indicar la cantidad de días en que el plan estará activo
+                    </p>
                   </div>
-                  <p
-                    id="helper-text-explanation"
-                    className="mt-2 text-sm text-gray-500 dark:text-gray-400"
-                  >
-                    Indicar la cantidad de días en que el plan estará activo
-                  </p>
                 </div>
 
-                <div className="mb-6 flex justify-between">
+                <div className="mt-6 flex justify-between">
                   <Link
                     href="/dashboard"
                     className={buttonStyles.link}
@@ -98,19 +89,16 @@ export default async function Configurations() {
                   >
                     Cancelar
                   </Link>
-
-                  <div className="flex space-x-4">
-                    <Button type="submit" variant="primary">
-                      Guardar
-                    </Button>
-                  </div>
+                  <Button type="submit" variant="primary">
+                    Guardar
+                  </Button>
                 </div>
               </form>
             </div>
-          </div>
 
-          <div className="grid grid-rows-1 grid-cols-1">
-            <SubscriptionPlanList />
+            <div className="w-full mt-8">
+              <SubscriptionPlanList />
+            </div>
           </div>
         </div>
       </div>
