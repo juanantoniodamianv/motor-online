@@ -5,9 +5,9 @@ import { Label, Radio, Select, Textarea, TextInput } from "flowbite-react";
 import InputNumber from "@/src/app/components/form/input-number";
 import Navigation from "@/src/app/components/navigation";
 import VehicleSelector from "@/src/app/components/publication-form/sections/info/vehicle-selector";
-import { type SectionProps } from "@/src/app/components/publication-form/types";
+import { useFormValidation } from "@/src/app/hooks/useFormValidation";
 
-import { useValidation } from "../useValidation";
+import { type SectionProps } from "@/src/app/components/publication-form/types";
 
 type InfoSectionDefaultValuesProps = {
   title?: string;
@@ -31,7 +31,7 @@ export default function InfoSection({
   isActiveTab,
   infoSectionDefaultValues,
 }: InfoSectionProps) {
-  const { sectionRef, error, handleContinue } = useValidation();
+  const { sectionRef, error, handleContinue } = useFormValidation();
 
   return (
     <div
