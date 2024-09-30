@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 
 import { SidebarProvider } from "@/src/context/sidebar-context";
 import { DashboardLayoutContent } from "@/src/app/components/private-layout/layout-content";
-import { createClient } from "@/src/app/utils/supabase/server";
+import useServerUser from "@/src/app/hooks/useServerUser";
 
-import "../../globals.css";
+import "@/src/app/globals.css";
 
 export const metadata: Metadata = {
   title: "Motor Online - Dashboard",
@@ -16,15 +16,14 @@ export default async function ({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createClient();
+  const { error, isAuthenticated, user } = await useServerUser();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
+  if (error || !isAuthenticated) {
     redirect("/login");
   }
 
-  const avatarUrl = data.user.user_metadata.avatar_url;
+  // TODO: default profile image here
+  const avatarUrl = user?.avatar_url;
 
   return (
     <html lang="en">

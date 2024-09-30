@@ -3,18 +3,17 @@ import Link from "next/link";
 import { Label, TextInput } from "flowbite-react";
 import { HiBriefcase } from "react-icons/hi";
 
-import { createClient } from "@/src/app/utils/supabase/server";
 import InputNumber from "@/src/app/components/form/input-number";
-import { createSubscriptionPlan } from "./action";
 import { Button, buttonStyles } from "@/src/app/components/button";
 import SubscriptionPlanList from "@/src/app/components/subscription-plans/subscription-plan-list";
+import useServerUser from "@/src/app/hooks/useServerUser";
+
+import { createSubscriptionPlan } from "./action";
 
 export default async function SubscriptionPlan() {
-  const supabase = createClient();
+  const { error, isAuthenticated } = await useServerUser();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
+  if (error || !isAuthenticated) {
     redirect("/login");
   }
 

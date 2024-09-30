@@ -4,20 +4,18 @@ import { HiUser } from "react-icons/hi";
 import { Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 
-import { createClient } from "@/src/app/utils/supabase/server";
+import useServerUser from "@/src/app/hooks/useServerUser";
 
 export default async function MyProfile() {
-  const supabase = createClient();
+  const { error, isAuthenticated, user } = await useServerUser();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
+  if (error || !isAuthenticated) {
     redirect("/login");
   }
 
-  const avatarUrl = data.user.user_metadata.avatar_url;
-  const name = data.user.user_metadata.full_name;
-  const email = data.user.user_metadata.email;
+  const avatarUrl = user?.avatar_url;
+  const name = user?.name ?? undefined;
+  const email = user?.email ?? undefined;
   const phone = undefined;
   const phoneWp = undefined;
 

@@ -1,4 +1,7 @@
-import type { Publication as PublicationType } from "../../types";
+"use client";
+
+import type { Publication as PublicationType } from "@/src/app/types";
+
 import Publication from "./publication";
 import PublicationExtended from "./publication-extended";
 

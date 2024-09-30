@@ -1,29 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-import { User } from "../../types";
-import { createClient } from "../../utils/supabase/client";
-import CustomTable, { Row } from "../table";
+import { useUsers } from "@/src/app/hooks/useUsers";
+import CustomTable, { Row } from "@/src/app/components/table";
 
 export default function UsersList() {
-  const [users, setUsers] = useState<User[] | null>(null);
-  const supabase = createClient();
+  const { error, users } = useUsers();
 
-  // TODO: mover a un hook
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const { data, error } = await supabase.from("users").select("*");
+  if (!users) {
+    return <div className="overflow-x-auto">Cargando usuarios</div>;
+  }
 
-      if (error) {
-        console.error("Error fetching users:", error);
-      } else {
-        setUsers(data);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  if (error) {
+    return (
+      <div className="overflow-x-auto">
+        Ha ocurrido un error al cargar los usuarios
+      </div>
+    );
+  }
 
   const columns = [
     { label: "Avatar", showHeader: false },
@@ -31,10 +24,6 @@ export default function UsersList() {
     { label: "Email", showHeader: true },
     { label: "Rol", showHeader: true },
   ];
-
-  if (!users) {
-    return;
-  }
 
   const rows: Row[][] = users.map((user) => {
     return [

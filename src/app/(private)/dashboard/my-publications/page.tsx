@@ -1,27 +1,15 @@
 import { redirect } from "next/navigation";
 import { HiCollection } from "react-icons/hi";
 
-import { createClient } from "@/src/app/utils/supabase/server";
-import PublicationList from "@/src/app/components/publication/list";
+import useServerUser from "@/src/app/hooks/useServerUser";
+import MyPublicationsList from "@/src/app/components/publication/my-publication-list";
 
 export default async function MyPublications() {
-  const supabase = createClient();
+  const { error, isAuthenticated, user } = await useServerUser();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
+  if (error || !isAuthenticated) {
     redirect("/login");
   }
-
-  const userId = data?.user.id;
-
-  const { data: publications, error: publicationsError } = await supabase
-    .from("publications")
-    .select(
-      "*, vehicle_categories (name), vehicle_makes (name), vehicle_models (name), vehicle_versions (name)"
-    )
-    .eq("user_id", userId)
-    .order("updated_at", { ascending: false });
 
   return (
     <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -32,11 +20,11 @@ export default async function MyPublications() {
           </h2>
         </div>
 
-        <div className="flex flex-wrap gap-4 mx-auto max-w-5xl">
-          {publications && (
-            <PublicationList publications={publications} extended={true} />
-          )}
-        </div>
+        {user?.id && (
+          <div className="flex flex-wrap gap-4 mx-auto max-w-5xl">
+            <MyPublicationsList userId={user.id} />
+          </div>
+        )}
       </div>
     </section>
   );

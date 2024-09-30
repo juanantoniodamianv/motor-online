@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 
-import { createClient } from "@/src/app/utils/supabase/server";
 import { SidebarProvider } from "@/src/context/sidebar-context";
 import { PublicLayoutContent } from "@/src/app/components/public-layout/layout-content";
-
-import "../globals.css";
+import useServerUser from "@/src/app/hooks/useServerUser";
+import "@/src/app/globals.css";
 
 export const metadata: Metadata = {
   title: "Motor Online",
@@ -15,17 +14,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createClient();
+  const { isAuthenticated, user } = await useServerUser();
 
-  const { data, error } = await supabase.auth.getUser();
-  let authenticated = false;
-
-  if (!error && data?.user) {
-    authenticated = true;
-  }
-
-  // TODO: handle error
-  const avatarUrl = data?.user?.user_metadata.avatar_url;
+  // TODO: default profile image here
+  const avatarUrl = user?.avatar_url;
 
   return (
     <html lang="en">
@@ -33,7 +25,7 @@ export default async function RootLayout({
         <SidebarProvider>
           <PublicLayoutContent
             avatarUrl={avatarUrl}
-            authenticated={authenticated}
+            authenticated={isAuthenticated}
           >
             {children}
           </PublicLayoutContent>

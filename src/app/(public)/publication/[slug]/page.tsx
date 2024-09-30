@@ -1,5 +1,5 @@
 import Carousel from "@/src/app/components/publication/carousel";
-import PublicationList from "@/src/app/components/publication/list";
+import PublicationList from "@/src/app/components/publication/publication-list";
 import { createClient } from "@/src/app/utils/supabase/client";
 import DescriptionContactSwitcher from "@/src/app/components/publication/description-contact-switcher";
 

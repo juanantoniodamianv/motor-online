@@ -1,15 +1,13 @@
 import { redirect } from "next/navigation";
 
-import { createClient } from "@/src/app/utils/supabase/server";
+import useServerUser from "@/src/app/hooks/useServerUser";
 
 export default async function PrivatePage() {
-  const supabase = createClient();
+  const { error, isAuthenticated, user } = await useServerUser();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
+  if (error || !isAuthenticated) {
     redirect("/login");
   }
 
-  return <p>Hello {data.user.email}, this is your dashboard</p>;
+  return <p>Hello {user?.email}, this is your dashboard</p>;
 }

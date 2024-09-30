@@ -1,15 +1,13 @@
 import { redirect } from "next/navigation";
 import { HiUserGroup } from "react-icons/hi";
 
-import { createClient } from "@/src/app/utils/supabase/server";
 import UsersList from "@/src/app/components/users/users-list";
+import useServerUser from "@/src/app/hooks/useServerUser";
 
 export default async function Users() {
-  const supabase = createClient();
+  const { error, isAuthenticated } = await useServerUser();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
+  if (error || !isAuthenticated) {
     redirect("/login");
   }
 
