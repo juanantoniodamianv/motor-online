@@ -1,7 +1,7 @@
-// This is a hook to handle client validation form
+// This is a hook to handle client validation form, for new and edit publications
 import { useRef, useState } from "react";
 
-export function useValidation() {
+export function useFormValidation() {
   const [error, setError] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
