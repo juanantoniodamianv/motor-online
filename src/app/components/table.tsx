@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Table } from "flowbite-react";
+import { formatCurrency } from "../utils/currency";
 
 type TableColumn = {
   label: string;
@@ -28,6 +29,17 @@ export default function CustomTable({ columns, rows }: TableProps) {
     />
   );
 
+  const renderCellContent = (cell: Row) => {
+    switch (cell.type) {
+      case "currency":
+        return formatCurrency(parseInt(cell.value), "ars");
+      case "image-url":
+        return <ImageCell imageUrl={cell.value} />;
+      default:
+        return cell.value;
+    }
+  };
+
   return (
     <Table>
       <Table.Head>
@@ -44,13 +56,7 @@ export default function CustomTable({ columns, rows }: TableProps) {
             className="bg-white dark:border-gray-700 dark:bg-gray-800"
           >
             {row.map((cell, cellIndex) => (
-              <Table.Cell key={cellIndex}>
-                {cell.type === "image-url" ? (
-                  <ImageCell imageUrl={cell.value} />
-                ) : (
-                  cell.value
-                )}
-              </Table.Cell>
+              <Table.Cell key={cellIndex}>{renderCellContent(cell)}</Table.Cell>
             ))}
           </Table.Row>
         ))}
