@@ -31,9 +31,9 @@ export default function SubscriptionPlanList() {
 
   const columns = [
     { label: "Nombre", showHeader: true },
-    { label: "Precio", showHeader: true },
     { label: "Cantidad de publicaciones", showHeader: true },
     { label: "Duración", showHeader: true },
+    { label: "Precio", showHeader: true },
   ];
 
   if (!subscriptionPlans) {
@@ -43,16 +43,18 @@ export default function SubscriptionPlanList() {
   const rows: Row[][] = subscriptionPlans.map((plan) => {
     return [
       { value: plan.name, type: "text" },
-      { value: plan.price ? plan.price.toString() : "N/A", type: "currency" },
       {
         value: plan.max_publications ? plan.max_publications.toString() : "N/A",
         type: "text",
       },
       {
-        value: plan.duration_days ? plan.duration_days?.toString() : "N/A",
+        value: plan.duration_days
+          ? `${plan.duration_days?.toString()} días`
+          : "N/A",
 
         type: "text",
       },
+      { value: plan.price ? plan.price.toString() : "N/A", type: "currency" },
     ];
   });
 
