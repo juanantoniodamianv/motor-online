@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Label, TextInput } from "flowbite-react";
 import { HiBriefcase } from "react-icons/hi";
@@ -6,17 +5,10 @@ import { HiBriefcase } from "react-icons/hi";
 import InputNumber from "@/src/app/components/form/input-number";
 import { Button, buttonStyles } from "@/src/app/components/button";
 import SubscriptionPlanList from "@/src/app/components/subscription-plans/subscription-plan-list";
-import useServerUser from "@/src/app/hooks/useServerUser";
 
 import { createSubscriptionPlan } from "./action";
 
 export default async function SubscriptionPlan() {
-  const { error, isAuthenticated } = await useServerUser();
-
-  if (error || !isAuthenticated) {
-    redirect("/login");
-  }
-
   return (
     <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">

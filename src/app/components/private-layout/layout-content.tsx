@@ -7,12 +7,10 @@ import { useSidebarContext } from "@/src/context/sidebar-context";
 import Navbar from "@/src/app/components/navbar";
 import { DashboardSidebar } from "@/src/app/components/private-layout/sidebar-client";
 
-type DashboardLayoutContentProps = PropsWithChildren<{
-  avatarUrl: string;
-}>;
+type DashboardLayoutContentProps = PropsWithChildren<{}>;
 
 export const DashboardLayoutContent: FC<DashboardLayoutContentProps> =
-  function ({ children, avatarUrl }) {
+  function ({ children }) {
     const { isCollapsed } = useSidebarContext();
     const [sidebarClass, setSidebarClass] = useState<string>(
       "lg:ml-64" // Default value matching server-side
@@ -29,8 +27,7 @@ export const DashboardLayoutContent: FC<DashboardLayoutContentProps> =
 
     return (
       <>
-        {/* This is a private layout, so we assume authenticated as true */}
-        <Navbar avatarUrl={avatarUrl} authenticated={true} />
+        <Navbar />
         <div className="mt-16 flex items-start">
           <DashboardSidebar />
           <div

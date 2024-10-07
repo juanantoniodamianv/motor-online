@@ -1,15 +1,10 @@
 import { createClient } from "@/src/app/utils/supabase/server";
 import { AuthError } from "@supabase/supabase-js";
-import { User } from "@/src/app/types";
 
-export default async function useServerUser(): Promise<{
-  error: AuthError | string | null;
-  isAuthenticated: boolean;
-  isAdmin?: boolean;
-  user?: User | null;
-}> {
+export async function checkAuth() {
+  const supabase = createClient();
+
   try {
-    const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
 
     if (authError !== null) {
@@ -18,11 +13,11 @@ export default async function useServerUser(): Promise<{
 
     const isAuthenticated = !!authData?.user;
 
-    // AFAIK it never should occurs, just in case
     if (!isAuthenticated) {
-      return { isAuthenticated: false, error: authError };
+      return { isAuthenticated: false, isAdmin: false, user: null };
     }
 
+    // Fetch user data
     const { data: userData, error: userError } = await supabase
       .from("users")
       .select("*")
@@ -36,14 +31,21 @@ export default async function useServerUser(): Promise<{
     const user = userData;
     const isAdmin = user?.role === "admin";
 
-    return { error: null, isAuthenticated, isAdmin, user };
+    return { isAuthenticated: true, isAdmin, user };
   } catch (err) {
-    const isAuthenticated = false;
     if (err instanceof AuthError) {
-      const error = err.message;
-      return { error, isAuthenticated };
+      return {
+        error: err.message,
+        isAuthenticated: false,
+        isAdmin: false,
+        user: null,
+      };
     }
-
-    return { error: "Something went wrong", isAuthenticated };
+    return {
+      error: "Something went wrong",
+      isAuthenticated: false,
+      isAdmin: false,
+      user: null,
+    };
   }
 }

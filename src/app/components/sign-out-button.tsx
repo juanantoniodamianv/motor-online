@@ -1,18 +1,11 @@
 "use client";
 
-import { createClient } from "@/src/app/utils/supabase/client";
+import { useAuthContext } from "@/src/context/auth-context";
 import { Sidebar } from "flowbite-react";
-import { useRouter } from "next/navigation";
 import { HiLogout } from "react-icons/hi";
 
 export default function SignOutButton() {
-  const supabase = createClient();
-  const router = useRouter();
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
-  };
+  const { handleSignOut } = useAuthContext();
 
   return (
     <Sidebar.Item

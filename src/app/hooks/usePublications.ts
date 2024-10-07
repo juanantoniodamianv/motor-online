@@ -11,7 +11,7 @@ type UsePublicationsProps = {
   userId?: string;
 };
 
-export default function UsePublications({ userId }: UsePublicationsProps): {
+export default function usePublications({ userId }: UsePublicationsProps): {
   publications: Publication[] | null;
   error: PostgrestError | string | null;
 } {

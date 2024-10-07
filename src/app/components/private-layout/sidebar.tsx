@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import Link from "next/link";
 import { Sidebar } from "flowbite-react";
 import {
@@ -7,52 +6,60 @@ import {
   HiCollection,
   HiHeart,
   HiUser,
-  HiUserGroup,
-  HiBriefcase,
   HiMail,
   HiOutlineAdjustments,
+  HiUserGroup,
+  HiBriefcase,
 } from "react-icons/hi";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
 
 import { useSidebarContext } from "@/src/context/sidebar-context";
 import SignOutButton from "@/src/app/components/sign-out-button";
+import { useAuthContext } from "@/src/context/auth-context";
 
-const links = [
-  { name: "Mi Panel", href: "/dashboard", icon: HiOutlineAdjustments },
-  {
-    name: "Nueva Publicación",
-    href: "/dashboard/new-publication",
-    icon: HiPencilAlt,
-  },
-  {
-    name: "Mis Publicaciones",
-    href: "/dashboard/my-publications",
-    icon: HiCollection,
-  },
-  {
-    name: "Todas las Publicaciones",
-    href: "/dashboard/all-publications",
-    icon: HiCollection,
-  },
-  { name: "Mis Favoritos", href: "/dashboard/my-favorites", icon: HiHeart },
-  { name: "Mi Perfil", href: "/dashboard/my-profile", icon: HiUser },
-  { name: "Mensajes", href: "/dashboard/messages", icon: HiMail },
-  {
-    name: "Usuarios",
-    href: "/dashboard/users",
-    icon: HiUserGroup,
-  },
-  {
-    name: "Planes de Suscripción",
-    href: "/dashboard/subscription-plans",
-    icon: HiBriefcase,
-  },
-];
-
-const DashboardSidebar: FC = function () {
+export default function DashboardSidebar() {
   const { isCollapsed } = useSidebarContext();
   const pathname = usePathname();
+  const { isAdmin } = useAuthContext();
+
+  let links = [
+    { name: "Mi Panel", href: "/dashboard", icon: HiOutlineAdjustments },
+    {
+      name: "Nueva Publicación",
+      href: "/dashboard/new-publication",
+      icon: HiPencilAlt,
+    },
+    {
+      name: "Mis Publicaciones",
+      href: "/dashboard/my-publications",
+      icon: HiCollection,
+    },
+
+    { name: "Mis Favoritos", href: "/dashboard/my-favorites", icon: HiHeart },
+    { name: "Mi Perfil", href: "/dashboard/my-profile", icon: HiUser },
+    { name: "Mensajes", href: "/dashboard/messages", icon: HiMail },
+  ];
+
+  if (isAdmin) {
+    links.push({
+      name: "Lista de usuarios",
+      href: "/dashboard/users",
+      icon: HiUserGroup,
+    });
+
+    links.push({
+      name: "Todas las publicaciones",
+      href: "/dashboard/all-publications",
+      icon: HiCollection,
+    });
+
+    links.push({
+      name: "Planes de suscripción",
+      href: "/dashboard/subscription-plans",
+      icon: HiBriefcase,
+    });
+  }
 
   return (
     <Sidebar
@@ -98,6 +105,4 @@ const DashboardSidebar: FC = function () {
       </Sidebar.Items>
     </Sidebar>
   );
-};
-
-export default DashboardSidebar;
+}

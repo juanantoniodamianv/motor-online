@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Sidebar } from "flowbite-react";
 import { HiDotsHorizontal, HiPencilAlt } from "react-icons/hi";
@@ -5,33 +7,34 @@ import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
 
 import { useSidebarContext } from "@/src/context/sidebar-context";
-import SignOutButton from "@/src/app/components/sign-out-button";
+import { useAuthContext } from "@/src/context/auth-context";
 import SignInButton from "../sign-in-button";
+import SignOutButton from "../sign-out-button";
 
-export default function PublicSidebar({
-  authenticated,
-}: {
-  authenticated: boolean;
-}) {
+export default function CustomSidebar() {
+  const { isAuthenticated } = useAuthContext();
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
   const { isCollapsed } = useSidebarContext();
   const pathname = usePathname();
 
   const links: { name: string; href: string; icon: any; animate?: boolean }[] =
-    [];
-
-  if (authenticated) {
-    links.push({
-      name: "Nueva Publicación",
-      href: "/dashboard/new-publication",
-      icon: HiPencilAlt,
-      animate: true,
-    });
-    links.push({
-      name: "Más Configuraciones",
-      href: "/dashboard",
-      icon: HiDotsHorizontal,
-    });
-  }
+    [
+      {
+        name: "Nueva Publicación",
+        href: "/dashboard/new-publication",
+        icon: HiPencilAlt,
+        animate: true,
+      },
+      {
+        name: "Más Configuraciones",
+        href: "/dashboard",
+        icon: HiDotsHorizontal,
+      },
+    ];
 
   return (
     <Sidebar
@@ -52,16 +55,16 @@ export default function PublicSidebar({
               icon={() => (
                 <l.icon
                   className={twMerge(
-                    "h-6 w-6", // Tamaño del ícono
-                    l.animate && "animate-color-change" // Aplicar animación si animate es true
+                    "h-6 w-6",
+                    l.animate && "animate-color-change"
                   )}
                 />
               )}
               className={twMerge(
                 "flex justify-start",
                 pathname === l.href &&
-                  "bg-green-700 text-white hover:bg-green-700 text-white", // Ensure hover styles are consistent
-                pathname !== l.href && "hover:bg-green-300" // Add hover effect for non-active items
+                  "bg-green-700 text-white hover:bg-green-700 text-white",
+                pathname !== l.href && "hover:bg-green-300"
               )}
               key={key}
             >
@@ -70,8 +73,8 @@ export default function PublicSidebar({
           ))}
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
-          {authenticated && <SignOutButton />}
-          {!authenticated && <SignInButton />}
+          {isAuthenticated && <SignOutButton />}
+          {!isAuthenticated && <SignInButton />}
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>

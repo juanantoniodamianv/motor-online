@@ -1,16 +1,8 @@
-import { redirect } from "next/navigation";
 import { HiUserGroup } from "react-icons/hi";
 
 import UsersList from "@/src/app/components/users/users-list";
-import useServerUser from "@/src/app/hooks/useServerUser";
 
 export default async function Users() {
-  const { error, isAuthenticated } = await useServerUser();
-
-  if (error || !isAuthenticated) {
-    redirect("/login");
-  }
-
   return (
     <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">

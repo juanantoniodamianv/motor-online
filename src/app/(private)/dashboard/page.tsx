@@ -1,13 +1,9 @@
-import { redirect } from "next/navigation";
-
-import useServerUser from "@/src/app/hooks/useServerUser";
-
 export default async function PrivatePage() {
-  const { error, isAuthenticated, user } = await useServerUser();
-
-  if (error || !isAuthenticated) {
-    redirect("/login");
-  }
-
-  return <p>Hello {user?.email}, this is your dashboard</p>;
+  return (
+    <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
+      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <div className="mx-auto max-w-5xl"></div>
+      </div>
+    </section>
+  );
 }
