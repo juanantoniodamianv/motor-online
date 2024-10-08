@@ -3,7 +3,7 @@
 import { HiCollection } from "react-icons/hi";
 
 import { createClient } from "@/src/app/utils/supabase/server";
-import PublicationList from "@/src/app/components/publication/list";
+import PublicationList from "@/src/app/components/publication/publication-list";
 import PublicationsFilter from "@/src/app/components/filter/filter";
 import Navigation from "@/src/app/components/navigation";
 

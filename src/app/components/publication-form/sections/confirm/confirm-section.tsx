@@ -4,10 +4,11 @@ import { Checkbox, Label, Radio } from "flowbite-react";
 
 import InputNumber from "@/src/app/components/form/input-number";
 import Navigation from "@/src/app/components/navigation";
+import { useFormValidation } from "@/src/app/hooks/useFormValidation";
+
 import { type SectionProps } from "@/src/app/components/publication-form/types";
 
 import SwapSection from "./swap-section";
-import { useValidation } from "../useValidation";
 
 type ConfirmSectionDefaultValuesProps = {
   currency_type?: string;
@@ -27,7 +28,7 @@ export default function ConfirmSection({
   confirmSectionDefaultValues,
   labelForward,
 }: ConfirmSectionProps) {
-  const { sectionRef, error, handleContinue } = useValidation();
+  const { sectionRef, error, handleContinue } = useFormValidation();
 
   return (
     <div

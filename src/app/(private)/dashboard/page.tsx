@@ -1,15 +1,9 @@
-import { redirect } from "next/navigation";
-
-import { createClient } from "@/src/app/utils/supabase/server";
-
 export default async function PrivatePage() {
-  const supabase = createClient();
-
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
-    redirect("/login");
-  }
-
-  return <p>Hello {data.user.email}, this is your dashboard</p>;
+  return (
+    <section className="bg-white h-full min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
+      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <div className="mx-auto max-w-5xl"></div>
+      </div>
+    </section>
+  );
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { SubscriptionPlanEntity } from "../../types";
 import { createClient } from "../../utils/supabase/client";
-import CustomTable from "../table";
+import CustomTable, { Row } from "../table";
 
 export default function SubscriptionPlanList() {
   const [subscriptionPlans, setSubscriptionPlans] = useState<
@@ -29,21 +29,38 @@ export default function SubscriptionPlanList() {
     fetchSubscriptionPlans();
   }, []);
 
-  const columns = ["Nombre", "Precio", "Cantidad de publicaciones", "Duración"];
+  const columns = [
+    { label: "Nombre", showHeader: true },
+    { label: "Cantidad de publicaciones", showHeader: true },
+    { label: "Duración", showHeader: true },
+    { label: "Precio", showHeader: true },
+  ];
 
-  const rows = subscriptionPlans?.map((plan) => {
+  if (!subscriptionPlans) {
+    return;
+  }
+
+  const rows: Row[][] = subscriptionPlans.map((plan) => {
     return [
-      { field: "Nombre", value: plan.name },
-      { field: "Precio", value: plan.price?.toString() },
+      { value: plan.name, type: "text" },
       {
-        field: "Cantidad de publicaciones",
-        value: plan.max_publications?.toString(),
+        value: plan.max_publications ? plan.max_publications.toString() : "N/A",
+        type: "text",
       },
-      { field: "Duración", value: plan.duration_days?.toString() },
+      {
+        value: plan.duration_days
+          ? `${plan.duration_days?.toString()} días`
+          : "N/A",
+
+        type: "text",
+      },
+      { value: plan.price ? plan.price.toString() : "N/A", type: "currency" },
     ];
   });
 
-  if (rows === undefined) return <></>;
-
-  return <CustomTable columns={columns} rows={rows} />;
+  return (
+    <div className="overflow-x-auto">
+      <CustomTable columns={columns} rows={rows} />
+    </div>
+  );
 }

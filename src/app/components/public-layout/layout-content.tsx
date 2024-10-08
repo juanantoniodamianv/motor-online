@@ -5,29 +5,23 @@ import { twMerge } from "tailwind-merge";
 
 import { useSidebarContext } from "@/src/context/sidebar-context";
 import Navbar from "@/src/app/components/navbar";
-import { PublicSidebar } from "@/src/app/components/public-layout/sidebar-client";
+import Sidebar from "./sidebar";
+import { useAuthContext } from "@/src/context/auth-context";
 
-type PublicLayoutContentProps = PropsWithChildren<{
-  avatarUrl?: string;
-  authenticated: boolean;
-}>;
+type PublicLayoutContentProps = PropsWithChildren<{}>;
 
 export const PublicLayoutContent: FC<PublicLayoutContentProps> = function ({
   children,
-  avatarUrl,
-  authenticated,
 }) {
+  const { isAuthenticated } = useAuthContext();
   // Display sidebar and menu button for authenticated users only
   const { isCollapsed } = useSidebarContext();
-  const [sidebarClass, setSidebarClass] = useState<string>(
-    authenticated ? "lg:ml-64" : "" // Default value matching server-side only for authenticated users
-  );
+  const [sidebarClass, setSidebarClass] = useState<
+    "lg:ml-[4.0rem]" | "lg:ml-64"
+  >("lg:ml-64");
 
   // Adjust class based on collapse state after mount
   useEffect(() => {
-    // If not authenticated, don't adjust the class
-    if (!authenticated) return;
-
     if (isCollapsed) {
       setSidebarClass("lg:ml-[4.0rem]");
     } else {
@@ -37,9 +31,9 @@ export const PublicLayoutContent: FC<PublicLayoutContentProps> = function ({
 
   return (
     <>
-      <Navbar avatarUrl={avatarUrl} authenticated={authenticated} />
+      <Navbar />
       <div className="mt-16 flex items-start">
-        {authenticated && <PublicSidebar authenticated={authenticated} />}
+        <Sidebar />
         <div
           id="main-content"
           className={twMerge(

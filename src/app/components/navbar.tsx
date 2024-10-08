@@ -1,19 +1,21 @@
 import Image from "next/image";
+import Link from "next/link";
 import { HiMenuAlt1, HiX } from "react-icons/hi";
 import { DarkThemeToggle, Navbar as FlowbiteNavbar } from "flowbite-react";
 
 import { useSidebarContext } from "@/src/context/sidebar-context";
 import { isSmallScreen } from "@/src/helpers";
-import Link from "next/link";
+import { useAuthContext } from "@/src/context/auth-context";
 
-type NavbarProps = {
-  avatarUrl?: string;
-  authenticated: boolean;
-};
-
-export default function Navbar({ avatarUrl, authenticated }: NavbarProps) {
+export default function Navbar() {
   const { isCollapsed: isSidebarCollapsed, setCollapsed: setSidebarCollapsed } =
     useSidebarContext();
+  const { isAuthenticated, user } = useAuthContext();
+  const defaultAvatar = "/default-avatar.png";
+
+  const imageLoader = () => {
+    return user?.avatar_url || defaultAvatar;
+  };
 
   return (
     <header>
@@ -24,7 +26,7 @@ export default function Navbar({ avatarUrl, authenticated }: NavbarProps) {
         <div className="w-full p-3 pr-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              {authenticated && (
+              {isAuthenticated && (
                 <button
                   aria-controls="sidebar"
                   aria-expanded
@@ -43,10 +45,11 @@ export default function Navbar({ avatarUrl, authenticated }: NavbarProps) {
                 <span className="self-center whitespace-nowrap px-3 text-xl font-semibold dark:text-white">
                   Motor Online
                 </span>
-                {authenticated && avatarUrl && (
+
+                {isAuthenticated && (
                   <Image
-                    loader={() => avatarUrl}
-                    src={avatarUrl}
+                    src={defaultAvatar}
+                    loader={imageLoader}
                     width={30}
                     height={30}
                     alt="Picture of the account"
@@ -57,7 +60,7 @@ export default function Navbar({ avatarUrl, authenticated }: NavbarProps) {
               </FlowbiteNavbar.Brand>
             </div>
             <div className="flex items-center">
-              {!authenticated && (
+              {!isAuthenticated && (
                 <Link
                   href="/login"
                   className="text-white bg-green-800 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-900 dark:hover:bg-green-600 dark:focus:ring-green-800"
@@ -65,7 +68,7 @@ export default function Navbar({ avatarUrl, authenticated }: NavbarProps) {
                   Iniciar Sesión
                 </Link>
               )}
-              {authenticated && <DarkThemeToggle />}
+              {isAuthenticated && <DarkThemeToggle />}
             </div>
           </div>
         </div>
